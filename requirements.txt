@@ -1,0 +1,7 @@
+feedparser
+transformers
+torch
+yfinance
+requests
+python-dotenv
+trafilatura
