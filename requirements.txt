@@ -1,7 +1,8 @@
-feedparser
-transformers
-torch
-yfinance
-requests
-python-dotenv
-trafilatura
+feedparser>=6.0
+yfinance>=0.2.40
+pandas>=2.0
+requests>=2.31
+python-dotenv>=1.0
+# Opcional: solo necesario si pones USAR_FINBERT=true
+# transformers>=4.40
+# torch>=2.2

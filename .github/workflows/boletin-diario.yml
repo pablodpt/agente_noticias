@@ -1,0 +1,48 @@
+name: Boletín diario 18:00 (Madrid)
+
+on:
+  # Madrid es UTC+2 en verano y UTC+1 en invierno.
+  # Lanzamos a las 16:00 y 17:00 UTC y el propio job descarta la hora que no toca.
+  schedule:
+    - cron: '0 16 * * 1-5'
+    - cron: '0 17 * * 1-5'
+  workflow_dispatch:
+
+concurrency:
+  group: boletin
+  cancel-in-progress: false
+
+jobs:
+  boletin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: ¿Son las 18:00 en Madrid?
+        id: hora
+        run: |
+          H=$(TZ=Europe/Madrid date +%H)
+          echo "Hora local en Madrid: $H"
+          if [ "$H" = "18" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "ejecutar=si" >> "$GITHUB_OUTPUT"
+          else
+            echo "ejecutar=no" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Instalar dependencias
+        if: steps.hora.outputs.ejecutar == 'si'
+        run: pip install -r requirements.txt
+
+      - name: Enviar boletín
+        if: steps.hora.outputs.ejecutar == 'si'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          TZ_USUARIO: Europe/Madrid
+        run: python agente.py boletin
