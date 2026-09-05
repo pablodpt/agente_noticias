@@ -1,0 +1,90 @@
+name: Oportunidades · escaneo diario
+
+on:
+  # Después del cierre de Wall Street (16:00 Nueva York).
+  # EE. UU. cambia de hora en fechas distintas a España, así que lanzamos a las
+  # 20:20 y 21:20 UTC y el propio job se queda con la que sean las 16h en NY.
+  schedule:
+    - cron: '20 20 * * 1-5'
+    - cron: '20 21 * * 1-5'
+  workflow_dispatch:
+
+concurrency:
+  group: oportunidades-diario
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # solo hace falta si COMMIT_INFORME=true
+
+env:
+  # Ponlo a true si quieres que el informe diario quede también commiteado.
+  COMMIT_INFORME: 'false'
+
+jobs:
+  escanear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: ¿Ha cerrado ya Wall Street?
+        id: hora
+        run: |
+          H=$(TZ=America/New_York date +%H)
+          echo "Hora en Nueva York: $H"
+          if [ "$H" = "16" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "ejecutar=si" >> "$GITHUB_OUTPUT"
+          else
+            echo "ejecutar=no" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Restaurar caché de estado y fundamentales
+        if: steps.hora.outputs.ejecutar == 'si'
+        uses: actions/cache@v4
+        with:
+          path: |
+            estado.json
+            datos/fundamentales_cache.json
+          key: oportunidades-${{ github.run_id }}
+          restore-keys: |
+            oportunidades-
+
+      - name: Instalar dependencias
+        if: steps.hora.outputs.ejecutar == 'si'
+        run: pip install -r requirements.txt
+
+      - name: Escanear oportunidades
+        if: steps.hora.outputs.ejecutar == 'si'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          TZ_USUARIO: Europe/Madrid
+        run: python oportunidades.py diario
+
+      - name: Subir informe
+        if: steps.hora.outputs.ejecutar == 'si'
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-oportunidades-diario
+          path: informes/
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Publicar informe en el repo
+        if: steps.hora.outputs.ejecutar == 'si' && env.COMMIT_INFORME == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add informes/ultimo.md informes/ultimo.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el informe."
+          else
+            git commit -m "📊 Informe de oportunidades $(date -u +'%Y-%m-%d')"
+            git push
+          fi

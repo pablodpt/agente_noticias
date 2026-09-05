@@ -1,0 +1,72 @@
+name: Oportunidades · escaneo semanal
+
+on:
+  # Sábado por la mañana: sin prisa, descarga fundamentales de todo el universo.
+  schedule:
+    - cron: '0 8 * * 6'
+  workflow_dispatch:
+
+concurrency:
+  group: oportunidades-semanal
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  # El informe semanal sí se publica en el repo (historial de una vez por semana).
+  COMMIT_INFORME: 'true'
+
+jobs:
+  escanear:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Restaurar caché de estado y fundamentales
+        uses: actions/cache@v4
+        with:
+          path: |
+            estado.json
+            datos/fundamentales_cache.json
+          key: oportunidades-${{ github.run_id }}
+          restore-keys: |
+            oportunidades-
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Escanear oportunidades (modo profundo)
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          TZ_USUARIO: Europe/Madrid
+        run: python oportunidades.py semanal
+
+      - name: Subir informe
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-oportunidades-semanal
+          path: informes/
+          if-no-files-found: ignore
+          retention-days: 90
+
+      - name: Publicar informe en el repo
+        if: env.COMMIT_INFORME == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add informes/ultimo.md informes/ultimo.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el informe."
+          else
+            git commit -m "📊 Informe semanal de oportunidades $(date -u +'%Y-%m-%d')"
+            git push
+          fi

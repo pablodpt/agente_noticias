@@ -6,3 +6,4 @@ python-dotenv>=1.0
 # Opcional: solo necesario si pones USAR_FINBERT=true
 # transformers>=4.40
 # torch>=2.2
+numpy>=1.24
