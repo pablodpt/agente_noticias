@@ -3,11 +3,11 @@
 
 # 🔎 Informe de oportunidades · S&P 500 (ejemplo)
 
-**Modo:** semanal · **Generado:** 05/09/2026 17:32 · **Duración:** 0 s
+**Modo:** semanal · **Generado:** 05/09/2026 17:33 · **Duración:** 0 s
 
 ## 🧭 Contexto de mercado
 
-- **S&P 500 (ejemplo) / referencia (SPY)**: 283,29 puntos (-0.45% hoy, -1.40% en 12 meses)
+- **S&P 500 (ejemplo) / referencia (SPY)**: 283,29 puntos (-0,45% hoy, -1,40% en 12 meses)
 - Media de 200 sesiones: 280,37 → el índice está **por encima** de ella
 - VIX (índice de miedo): 15,00
 - **Régimen detectado:** alcista → pesos ajustados: momentum ×1.15, reversion ×0.9, valor ×1, catalizador ×1
@@ -48,19 +48,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 70,05 (-0.38%) |
+| Precio | 70,05 (-0,38%) |
 | RSI 14 | 48 |
-| 12 meses | +20.69% |
-| 6 meses | +3.01% |
-| Fuerza rel. 6m | +1.82% |
+| 12 meses | +20,69% |
+| 6 meses | +3,01% |
+| Fuerza rel. 6m | +1,82% |
 | Volatilidad | 14% |
-| Máx. 52s | -5.0% |
+| Máx. 52s | -5,0% |
 | PER (fwd) | 8,0 |
 | ROE | 26,0% |
 | Margen neto | 18,0% |
-| Ingresos | +12.0% |
+| Ingresos | +12,0% |
 | FCF yield | 9,0% |
-| Potencial | +22.0% |
+| Potencial | +22,0% |
 
 [Ver VALOR en Yahoo Finance](https://finance.yahoo.com/quote/VALOR)
 
@@ -83,19 +83,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 102,57 (+3.69%) |
+| Precio | 102,57 (+3,69%) |
 | RSI 14 | 69 |
-| 12 meses | +88.63% |
-| 6 meses | +42.53% |
-| Fuerza rel. 6m | +41.34% |
+| 12 meses | +88,63% |
+| 6 meses | +42,53% |
+| Fuerza rel. 6m | +41,34% |
 | Volatilidad | 13% |
-| Máx. 52s | +0.0% |
+| Máx. 52s | +0,0% |
 | PER (fwd) | 32,0 |
 | ROE | 19,3% |
 | Margen neto | 3,1% |
-| Ingresos | +1.8% |
+| Ingresos | +1,8% |
 | FCF yield | 4,6% |
-| Potencial | +4.3% |
+| Potencial | +4,3% |
 
 [Ver NOTICIA en Yahoo Finance](https://finance.yahoo.com/quote/NOTICIA)
 
@@ -118,19 +118,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 130,20 (+2.00%) |
+| Precio | 130,20 (+2,00%) |
 | RSI 14 | 27 |
-| 12 meses | +121.67% |
-| 6 meses | +14.65% |
-| Fuerza rel. 6m | +13.46% |
+| 12 meses | +121,67% |
+| 6 meses | +14,65% |
+| Fuerza rel. 6m | +13,46% |
 | Volatilidad | 7% |
-| Máx. 52s | -19.1% |
+| Máx. 52s | -19,1% |
 | PER (fwd) | 18,0 |
 | ROE | 18,0% |
 | Margen neto | 12,0% |
-| Ingresos | +6.0% |
+| Ingresos | +6,0% |
 | FCF yield | 3,0% |
-| Potencial | +10.0% |
+| Potencial | +10,0% |
 
 [Ver CAIDA en Yahoo Finance](https://finance.yahoo.com/quote/CAIDA)
 
@@ -150,19 +150,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 92,12 (-0.98%) |
+| Precio | 92,12 (-0,98%) |
 | RSI 14 | 67 |
-| 12 meses | +89.51% |
-| 6 meses | +28.95% |
-| Fuerza rel. 6m | +27.76% |
+| 12 meses | +89,51% |
+| 6 meses | +28,95% |
+| Fuerza rel. 6m | +27,76% |
 | Volatilidad | 12% |
-| Máx. 52s | -1.6% |
+| Máx. 52s | -1,6% |
 | PER (fwd) | 16,4 |
 | ROE | 10,6% |
 | Margen neto | 14,7% |
-| Ingresos | +1.5% |
+| Ingresos | +1,5% |
 | FCF yield | 5,4% |
-| Potencial | +4.2% |
+| Potencial | +4,2% |
 
 [Ver TENDENCIA en Yahoo Finance](https://finance.yahoo.com/quote/TENDENCIA)
 
@@ -182,19 +182,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 55,30 (-0.30%) |
+| Precio | 55,30 (-0,30%) |
 | RSI 14 | 64 |
-| 12 meses | +27.91% |
-| 6 meses | +23.73% |
-| Fuerza rel. 6m | +22.54% |
+| 12 meses | +27,91% |
+| 6 meses | +23,73% |
+| Fuerza rel. 6m | +22,54% |
 | Volatilidad | 21% |
-| Máx. 52s | -2.5% |
+| Máx. 52s | -2,5% |
 | PER (fwd) | 21,0 |
 | ROE | 12,4% |
 | Margen neto | 11,6% |
-| Ingresos | +6.0% |
+| Ingresos | +6,0% |
 | FCF yield | 3,8% |
-| Potencial | -4.2% |
+| Potencial | -4,2% |
 
 [Ver RUIDO25 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO25)
 
@@ -211,19 +211,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 55,82 (-1.47%) |
+| Precio | 55,82 (-1,47%) |
 | RSI 14 | 54 |
-| 12 meses | -2.68% |
-| 6 meses | +7.72% |
-| Fuerza rel. 6m | +6.53% |
+| 12 meses | -2,68% |
+| 6 meses | +7,72% |
+| Fuerza rel. 6m | +6,53% |
 | Volatilidad | 21% |
-| Máx. 52s | -8.5% |
+| Máx. 52s | -8,5% |
 | PER (fwd) | 31,4 |
 | ROE | 19,6% |
 | Margen neto | 14,9% |
-| Ingresos | +9.8% |
+| Ingresos | +9,8% |
 | FCF yield | 5,5% |
-| Potencial | -0.0% |
+| Potencial | -0,0% |
 
 [Ver RUIDO55 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO55)
 
@@ -243,19 +243,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 78,68 (+1.69%) |
+| Precio | 78,68 (+1,69%) |
 | RSI 14 | 62 |
-| 12 meses | +16.26% |
-| 6 meses | +24.08% |
-| Fuerza rel. 6m | +22.89% |
+| 12 meses | +16,26% |
+| 6 meses | +24,08% |
+| Fuerza rel. 6m | +22,89% |
 | Volatilidad | 23% |
-| Máx. 52s | +0.0% |
+| Máx. 52s | +0,0% |
 | PER (fwd) | 25,1 |
 | ROE | 15,6% |
 | Margen neto | 5,2% |
-| Ingresos | +6.7% |
+| Ingresos | +6,7% |
 | FCF yield | 0,3% |
-| Potencial | -3.6% |
+| Potencial | -3,6% |
 
 [Ver RUIDO31 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO31)
 
@@ -275,19 +275,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 88,02 (-1.36%) |
+| Precio | 88,02 (-1,36%) |
 | RSI 14 | 52 |
-| 12 meses | +36.51% |
-| 6 meses | +27.12% |
-| Fuerza rel. 6m | +25.93% |
+| 12 meses | +36,51% |
+| 6 meses | +27,12% |
+| Fuerza rel. 6m | +25,93% |
 | Volatilidad | 20% |
-| Máx. 52s | -2.1% |
+| Máx. 52s | -2,1% |
 | PER (fwd) | 17,9 |
 | ROE | 9,3% |
 | Margen neto | 14,0% |
-| Ingresos | +1.2% |
+| Ingresos | +1,2% |
 | FCF yield | 4,2% |
-| Potencial | -2.5% |
+| Potencial | -2,5% |
 
 [Ver RUIDO34 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO34)
 
@@ -303,19 +303,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 98,22 (+0.03%) |
+| Precio | 98,22 (+0,03%) |
 | RSI 14 | 56 |
-| 12 meses | +20.04% |
-| 6 meses | -1.64% |
-| Fuerza rel. 6m | -2.83% |
+| 12 meses | +20,04% |
+| 6 meses | -1,64% |
+| Fuerza rel. 6m | -2,83% |
 | Volatilidad | 22% |
-| Máx. 52s | -4.1% |
+| Máx. 52s | -4,1% |
 | PER (fwd) | 19,2 |
 | ROE | 13,1% |
 | Margen neto | 11,1% |
-| Ingresos | +9.2% |
+| Ingresos | +9,2% |
 | FCF yield | 2,7% |
-| Potencial | +3.5% |
+| Potencial | +3,5% |
 
 [Ver RUIDO49 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO49)
 
@@ -330,19 +330,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 44,84 (-1.32%) |
+| Precio | 44,84 (-1,32%) |
 | RSI 14 | 52 |
-| 12 meses | +29.88% |
-| 6 meses | +11.50% |
-| Fuerza rel. 6m | +10.31% |
+| 12 meses | +29,88% |
+| 6 meses | +11,50% |
+| Fuerza rel. 6m | +10,31% |
 | Volatilidad | 22% |
-| Máx. 52s | -9.2% |
+| Máx. 52s | -9,2% |
 | PER (fwd) | 17,8 |
 | ROE | 21,2% |
 | Margen neto | 4,9% |
-| Ingresos | +2.5% |
+| Ingresos | +2,5% |
 | FCF yield | 5,9% |
-| Potencial | -2.5% |
+| Potencial | -2,5% |
 
 [Ver RUIDO06 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO06)
 
@@ -357,19 +357,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 46,48 (+1.21%) |
+| Precio | 46,48 (+1,21%) |
 | RSI 14 | 39 |
-| 12 meses | -1.48% |
-| 6 meses | +5.12% |
-| Fuerza rel. 6m | +3.93% |
+| 12 meses | -1,48% |
+| 6 meses | +5,12% |
+| Fuerza rel. 6m | +3,93% |
 | Volatilidad | 24% |
-| Máx. 52s | -10.0% |
+| Máx. 52s | -10,0% |
 | PER (fwd) | 19,0 |
 | ROE | 20,7% |
 | Margen neto | 6,9% |
-| Ingresos | +3.3% |
+| Ingresos | +3,3% |
 | FCF yield | 5,7% |
-| Potencial | +2.2% |
+| Potencial | +2,2% |
 
 [Ver RUIDO20 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO20)
 
@@ -389,13 +389,13 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 51,81 (-0.45%) |
+| Precio | 51,81 (-0,45%) |
 | RSI 14 | 70 |
-| 12 meses | -5.86% |
-| 6 meses | +22.03% |
-| Fuerza rel. 6m | +20.84% |
+| 12 meses | -5,86% |
+| 6 meses | +22,03% |
+| Fuerza rel. 6m | +20,84% |
 | Volatilidad | 24% |
-| Máx. 52s | -3.2% |
+| Máx. 52s | -3,2% |
 
 [Ver RUIDO28 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO28)
 
@@ -410,19 +410,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 63,03 (-0.16%) |
+| Precio | 63,03 (-0,16%) |
 | RSI 14 | 53 |
-| 12 meses | +34.25% |
-| 6 meses | +1.73% |
-| Fuerza rel. 6m | +0.53% |
+| 12 meses | +34,25% |
+| 6 meses | +1,73% |
+| Fuerza rel. 6m | +0,53% |
 | Volatilidad | 24% |
-| Máx. 52s | -5.7% |
+| Máx. 52s | -5,7% |
 | PER (fwd) | 32,5 |
 | ROE | 14,2% |
 | Margen neto | 5,9% |
-| Ingresos | +9.8% |
+| Ingresos | +9,8% |
 | FCF yield | 4,2% |
-| Potencial | -0.5% |
+| Potencial | -0,5% |
 
 [Ver RUIDO22 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO22)
 
@@ -442,19 +442,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 63,48 (+0.69%) |
+| Precio | 63,48 (+0,69%) |
 | RSI 14 | 53 |
-| 12 meses | +20.42% |
-| 6 meses | +28.69% |
-| Fuerza rel. 6m | +27.49% |
+| 12 meses | +20,42% |
+| 6 meses | +28,69% |
+| Fuerza rel. 6m | +27,49% |
 | Volatilidad | 26% |
-| Máx. 52s | -4.7% |
+| Máx. 52s | -4,7% |
 | PER (fwd) | 23,1 |
 | ROE | 19,3% |
 | Margen neto | 11,6% |
-| Ingresos | +5.7% |
+| Ingresos | +5,7% |
 | FCF yield | 2,1% |
-| Potencial | +10.7% |
+| Potencial | +10,7% |
 
 [Ver RUIDO24 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO24)
 
@@ -474,19 +474,19 @@ Universo analizado: **62** valores · con datos: **62** · tras filtros: **62**
 
 | Métrica | Valor |
 |---|---|
-| Precio | 83,95 (+0.96%) |
+| Precio | 83,95 (+0,96%) |
 | RSI 14 | 60 |
-| 12 meses | +28.75% |
-| 6 meses | +12.22% |
-| Fuerza rel. 6m | +11.03% |
+| 12 meses | +28,75% |
+| 6 meses | +12,22% |
+| Fuerza rel. 6m | +11,03% |
 | Volatilidad | 22% |
-| Máx. 52s | -2.5% |
+| Máx. 52s | -2,5% |
 | PER (fwd) | 27,5 |
 | ROE | 16,0% |
 | Margen neto | 11,4% |
-| Ingresos | +6.2% |
+| Ingresos | +6,2% |
 | FCF yield | 2,2% |
-| Potencial | +3.9% |
+| Potencial | +3,9% |
 
 [Ver RUIDO37 en Yahoo Finance](https://finance.yahoo.com/quote/RUIDO37)
 

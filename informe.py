@@ -33,6 +33,7 @@ def _n(valor, decimales: int = 2, sufijo: str = "") -> str:
 
 
 def _p(valor, decimales: int = 2, signo: bool = True) -> str:
+    """Porcentaje con formato español (coma decimal)."""
     if isinstance(valor, bool) or valor is None:
         return "—"
     try:
@@ -41,7 +42,8 @@ def _p(valor, decimales: int = 2, signo: bool = True) -> str:
         return "—"
     if v != v:
         return "—"
-    return f"{v:+.{decimales}f}%" if signo else f"{v:.{decimales}f}%"
+    texto = f"{v:+.{decimales}f}" if signo else f"{v:.{decimales}f}"
+    return texto.replace(".", ",") + "%"
 
 
 def _esc(texto) -> str:
