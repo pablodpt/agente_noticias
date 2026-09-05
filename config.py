@@ -202,3 +202,19 @@ SECTORES_ES = {
     "Real Estate": "Inmobiliario",
     "Materials": "Materiales",
 }
+
+
+def forzar_utf8() -> None:
+    """Evita errores de codificación en Windows.
+
+    La consola de Windows puede estar en cp1252, que no representa los
+    emoticonos de los mensajes: al imprimirlos (o al redirigir la salida a un
+    fichero) Python lanzaría UnicodeEncodeError. Forzamos UTF-8 y, si algo no
+    se puede representar, lo sustituimos en lugar de cascarnos.
+    """
+    import sys
+    for flujo in (sys.stdout, sys.stderr):
+        try:
+            flujo.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+        except Exception:
+            pass

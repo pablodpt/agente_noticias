@@ -16,7 +16,7 @@ import logging
 import sys
 
 from config import (BENCHMARK, DIR_INFORMES, TELEGRAM_CHAT_ID, TELEGRAM_TOKEN,
-                    TTL_OPORTUNIDAD_HORAS)
+                    TTL_OPORTUNIDAD_HORAS, forzar_utf8)
 from estado import Estado
 from informe import guardar, html, markdown, telegram
 from scanner import Fuentes, escanear
@@ -388,6 +388,7 @@ def _selftest() -> int:
 # ----------------------------------------------------------------------- CLI --
 
 def main() -> None:
+    forzar_utf8()
     ap = argparse.ArgumentParser(
         description="Detector de oportunidades del mercado",
         formatter_class=argparse.RawDescriptionHelpFormatter,

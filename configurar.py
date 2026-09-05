@@ -24,6 +24,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from config import forzar_utf8
+
 RUTA_ENV = Path(__file__).resolve().parent / ".env"
 RUTA_EJEMPLO = Path(__file__).resolve().parent / ".env.example"
 
@@ -372,6 +374,7 @@ def mostrar() -> int:
 
 
 def main() -> None:
+    forzar_utf8()
     ap = argparse.ArgumentParser(description="Crea y comprueba el archivo .env")
     ap.add_argument("--desde-github", action="store_true",
                     help="Lanza el workflow y se trae el .env de tus secrets (usa gh)")

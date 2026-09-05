@@ -14,7 +14,7 @@ import sys
 import time
 from datetime import datetime, timezone
 
-from config import (DIAS_AVISO_EARNINGS, HORA_BOLETIN, INDICES_CONTEXTO,
+from config import (DIAS_AVISO_EARNINGS, HORA_BOLETIN, INDICES_CONTEXTO, forzar_utf8,
                     INTERVALO_VIGILANCIA_SEG, MAX_NOTICIAS_POR_TICKER,
                     MINUTO_BOLETIN, NOMBRES, PESOS, TELEGRAM_CHAT_ID,
                     TELEGRAM_TOKEN, TICKERS, TZ)
@@ -254,6 +254,7 @@ def daemon():
 # --------------------------------------------------------------------- CLI --
 
 def main():
+    forzar_utf8()
     ap = argparse.ArgumentParser(description="Agente de Portafolio → Telegram")
     ap.add_argument("modo", nargs="?", default="boletin",
                     choices=["boletin", "vigilar", "daemon", "test", "preview"])
