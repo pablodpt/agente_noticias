@@ -2,19 +2,26 @@
 
 Uso:
 
-    python configurar.py             # te pregunta las claves y escribe .env
-    python configurar.py --probar    # comprueba el .env actual mandando un mensaje
-    python configurar.py --mostrar   # enseña qué hay cargado (ocultando el token)
+    python configurar.py                 # te pregunta las claves y escribe .env
+    python configurar.py --desde-github  # las baja de tus secrets de GitHub (usa gh)
+    python configurar.py --probar        # comprueba el .env actual mandando un mensaje
+    python configurar.py --mostrar       # enseña qué hay cargado (ocultando el token)
 
 El archivo .env queda en la raíz del repo, con permisos 600 y ignorado por git.
 """
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
+import shutil
 import stat
+import subprocess
 import sys
+import tempfile
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 RUTA_ENV = Path(__file__).resolve().parent / ".env"
@@ -156,6 +163,183 @@ def configurar() -> int:
     return 0
 
 
+# ------------------------------------------------- Bajarse las claves de GitHub --
+
+WORKFLOW_ENV = "generar-env.yml"
+ARTEFACTO_ENV = "env-local"
+
+
+def _gh(args: list[str], capturar: bool = True) -> subprocess.CompletedProcess:
+    return subprocess.run(["gh", *args], capture_output=capturar, text=True)
+
+
+def _slug() -> str | None:
+    """owner/repo leyendo el remoto de git."""
+    r = subprocess.run(["git", "config", "--get", "remote.origin.url"],
+                       capture_output=True, text=True)
+    url = (r.stdout or "").strip()
+    if not url:
+        r = _gh(["repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"])
+        return (r.stdout or "").strip() or None
+    url = url.rstrip("/").removesuffix(".git")
+    if url.startswith("git@"):
+        url = url.split(":", 1)[-1]
+    for prefijo in ("https://github.com/", "http://github.com/", "ssh://git@github.com/"):
+        if url.startswith(prefijo):
+            url = url[len(prefijo):]
+    return url or None
+
+
+def _rama_actual() -> str | None:
+    r = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                       capture_output=True, text=True)
+    return (r.stdout or "").strip() or None
+
+
+def _nueva_ejecucion(slug: str, desde: datetime, intentos: int = 24) -> str | None:
+    """Espera a que aparezca la ejecución que acabamos de lanzar."""
+    for _ in range(intentos):
+        r = _gh(["run", "list", "--workflow", WORKFLOW_ENV, "--repo", slug,
+                 "--limit", "5", "--json", "databaseId,createdAt"])
+        try:
+            runs = json.loads(r.stdout or "[]")
+        except json.JSONDecodeError:
+            runs = []
+        for run in runs:
+            try:
+                creado = datetime.fromisoformat(run["createdAt"].replace("Z", "+00:00"))
+            except Exception:
+                continue
+            if creado >= desde:
+                return str(run["databaseId"])
+        time.sleep(2.5)
+    return None
+
+
+def _esperar_fin(slug: str, run_id: str, timeout: int = 300) -> tuple[str, str]:
+    """Devuelve (status, conclusión) cuando la ejecución termina."""
+    final = time.time() + timeout
+    while time.time() < final:
+        r = _gh(["run", "view", run_id, "--repo", slug, "--json", "status,conclusion"])
+        try:
+            datos = json.loads(r.stdout or "{}")
+        except json.JSONDecodeError:
+            datos = {}
+        status = (datos.get("status") or "").lower()
+        conclusion = (datos.get("conclusion") or "").lower()
+        if status == "completed":
+            return status, conclusion
+        time.sleep(5)
+    return "timeout", ""
+
+
+def _borrar_artefacto(slug: str) -> int:
+    r = _gh(["api", "--paginate", f"repos/{slug}/actions/artifacts",
+             "--jq", f'.artifacts[] | select(.name=="{ARTEFACTO_ENV}") | .id'])
+    ids = [x.strip() for x in (r.stdout or "").splitlines() if x.strip()]
+    for id_artefacto in ids:
+        _gh(["api", "-X", "DELETE", f"repos/{slug}/actions/artifacts/{id_artefacto}"])
+    return len(ids)
+
+
+def desde_github(borrar: bool | None = None) -> int:
+    """Lanza el workflow 'Generar .env para uso local' y se trae el .env."""
+    print("\n🔑 Descargar las claves desde los secrets de GitHub\n")
+
+    if shutil.which("gh") is None:
+        print("❌ No encuentro el CLI de GitHub (`gh`). Instálalo: https://cli.github.com")
+        print("   o crea el .env a mano con: python configurar.py")
+        return 1
+    if _gh(["auth", "status"]).returncode != 0:
+        print("❌ `gh` no está autenticado. Ejecuta antes:  gh auth login")
+        return 1
+
+    slug = _slug()
+    if not slug:
+        print("❌ No consigo saber el repositorio (owner/repo).")
+        return 1
+    print(f"Repositorio: {slug}")
+
+    rama = _rama_actual()
+    desde = datetime.now(timezone.utc).replace(microsecond=0)
+    comando = ["workflow", "run", WORKFLOW_ENV, "--repo", slug]
+    if rama:
+        comando += ["--ref", rama]
+    r = _gh(comando)
+    if r.returncode != 0 and rama:                # reintento en la rama por defecto
+        r = _gh(["workflow", "run", WORKFLOW_ENV, "--repo", slug])
+    if r.returncode != 0:
+        print("❌ No se ha podido lanzar el workflow. Detalle:")
+        print("   " + (r.stderr or "").strip().replace("\n", "\n   "))
+        print("\n   Motivo habitual: la API de GitHub solo puede lanzar workflows")
+        print("   que existan en la rama por defecto del repo (normalmente main).")
+        print("   Opciones:")
+        print("     · haz merge/PR de tu rama a main y vuelve a intentarlo, o")
+        print("     · lánzalo a mano desde la pestaña Actions (ahí sí puedes")
+        print("       elegir la rama) y descarga el artefacto 'env-local'.")
+        return 1
+    print("▶️  Workflow lanzado, esperando a que arranque...")
+
+    run_id = _nueva_ejecucion(slug, desde)
+    if not run_id:
+        print("❌ No aparece la ejecución. Revísalo a mano en la pestaña Actions.")
+        return 1
+    print(f"⏳ Ejecución {run_id} en curso (suele tardar menos de un minuto)...")
+
+    status, conclusion = _esperar_fin(slug, run_id)
+    if status == "timeout":
+        print("❌ La ejecución tarda demasiado. Mírala en la pestaña Actions.")
+        return 1
+    if conclusion != "success":
+        print(f"❌ El workflow terminó con conclusión «{conclusion or 'desconocida'}».")
+        print("   Causa más probable: faltan los secrets TELEGRAM_TOKEN o "
+              "TELEGRAM_CHAT_ID en el repo.")
+        print("   Míralo en Actions y, si faltan, créalos en Settings → Secrets "
+              "and variables → Actions.")
+        return 1
+
+    temporal = tempfile.mkdtemp(prefix="env-local-")
+    r = _gh(["run", "download", run_id, "--repo", slug, "-n", ARTEFACTO_ENV,
+             "-D", temporal])
+    if r.returncode != 0:
+        print("❌ No se ha podido descargar el artefacto:")
+        print("   " + (r.stderr or "").strip())
+        return 1
+
+    enviados = list(Path(temporal).rglob(".env"))
+    if not enviados:
+        print(f"❌ El artefacto no contenía ningún .env (descargado en {temporal}).")
+        return 1
+
+    contenido = enviados[0].read_text(encoding="utf-8")
+    if "TELEGRAM_TOKEN=" not in contenido:
+        print("❌ El .env descargado no trae TELEGRAM_TOKEN. Revisa los secrets.")
+        return 1
+
+    RUTA_ENV.write_text(contenido, encoding="utf-8")
+    try:
+        os.chmod(RUTA_ENV, stat.S_IRUSR | stat.S_IWUSR)      # 600
+    except OSError:
+        pass
+    shutil.rmtree(temporal, ignore_errors=True)
+
+    lineas = [l for l in contenido.splitlines() if l.strip() and not l.startswith("#")]
+    print(f"✅ .env instalado en {RUTA_ENV} (permisos 600) con {len(lineas)} claves.")
+
+    if borrar is None:
+        borrar = sys.stdin.isatty() and input(
+            "\n¿Borramos el artefacto de GitHub? Contiene tus claves en texto "
+            "plano. [S/n]: ").strip().lower() not in ("n", "no")
+    if borrar:
+        n = _borrar_artefacto(slug)
+        print(f"🗑️  {'Artefacto borrado.' if n else 'No quedaba artefacto que borrar.'}")
+    else:
+        print("⚠️  Recuerda borrar el artefacto «env-local» en la pestaña Actions.")
+
+    print("\nSiguiente paso:  python configurar.py --probar")
+    return 0
+
+
 def probar() -> int:
     """Comprueba que el .env actual funciona mandando un mensaje."""
     from dotenv import load_dotenv
@@ -189,10 +373,14 @@ def mostrar() -> int:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="Crea y comprueba el archivo .env")
+    ap.add_argument("--desde-github", action="store_true",
+                    help="Lanza el workflow y se trae el .env de tus secrets (usa gh)")
     ap.add_argument("--probar", action="store_true", help="Enviar mensaje de prueba")
     ap.add_argument("--mostrar", action="store_true", help="Mostrar la configuración")
     args = ap.parse_args()
 
+    if args.desde_github:
+        sys.exit(desde_github())
     if args.probar:
         sys.exit(probar())
     if args.mostrar:

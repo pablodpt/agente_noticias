@@ -31,11 +31,25 @@ tienes dos formas de tener el `.env` en local:
 
 **A. Recuperarlas desde GitHub (lo más rápido si ya las guardaste allí)**
 
-1. En el repo → **Actions → Generar .env para uso local → Run workflow**.
-2. Descarga el artefacto **`env-local`** que genera (te aparece en la propia ejecución).
+Un solo comando, que hace todo el recorrido (lanza el workflow, espera, descarga
+el artefacto, instala el `.env` con permisos 600 y borra el artefacto):
+
+```bash
+python configurar.py --desde-github      # necesita el CLI gh autenticado
+```
+
+> ⚠️ La **API** de GitHub solo puede lanzar workflows que existan en la **rama por
+> defecto** (`main`). Si aún no has fusionado la rama, te dará 404: usa entonces el
+> camino manual o la opción B.
+
+A mano, desde la web:
+
+1. **Actions → Generar .env para uso local → Run workflow** (en el desplegable
+   *Use workflow from* elige tu rama si el workflow aún no está en `main`).
+2. Descarga el artefacto **`env-local`** que genera.
 3. Descomprímelo y deja el `.env` en la carpeta del proyecto.
-4. **Borra el artefacto** en cuanto lo tengas: contiene las credenciales en texto plano.
-   Caduca solo en 1 día, pero mejor no dejarlo.
+4. **Borra el artefacto** en cuanto lo tengas: contiene las credenciales en texto
+   plano. Caduca en 1 día, pero mejor no dejarlo.
 
 **B. Escribirlas a mano con el asistente**
 
@@ -140,6 +154,10 @@ Secrets necesarios (**Settings → Secrets and variables → Actions**):
 - `SEC_USER_AGENT` → p. ej. `mi-agente tu-email@dominio.com`
 
 Puedes lanzarlos a mano desde **Actions → Run workflow** para probarlos.
+
+> ⚠️ **Los workflows programados solo se ejecutan desde la rama por defecto**
+> (`main`). Si trabajas en otra rama, los cron no saltarán hasta que la fusiones;
+> el lanzamiento manual desde la pestaña Actions sí funciona en cualquier rama.
 
 En local, si prefieres **cron**:
 
