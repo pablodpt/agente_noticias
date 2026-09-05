@@ -4,3 +4,7 @@ venv/
 __pycache__/
 *.pyc
 estado.json
+
+# Detector de oportunidades: cachés y histórico local de informes
+datos/fundamentales_cache.json
+informes/historico/

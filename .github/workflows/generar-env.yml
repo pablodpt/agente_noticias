@@ -1,0 +1,73 @@
+name: Generar .env para uso local
+
+# Uso puntual: si ya tienes las claves como secrets de GitHub y quieres correr el
+# agente en tu ordenador, lanza este workflow a mano (Actions → Run workflow) y
+# descárgate el artefacto "env-local". Después BORRA el artefacto.
+#
+# ⚠️ Los secrets de GitHub no se pueden leer desde la API, así que esta es la
+# forma de recuperarlos sin volver a pedirle el token a @BotFather. El artefacto
+# contiene credenciales en texto plano: cualquiera con acceso al repo puede
+# descargarlo. Por eso caduca en 1 día.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  env:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Comprobar que los secrets existen
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "$TELEGRAM_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+            echo "::error::Falta TELEGRAM_TOKEN o TELEGRAM_CHAT_ID en los secrets del repo."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Escribir .env
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: |
+          {
+            echo "# Generado por el workflow 'Generar .env para uso local'"
+            echo "TELEGRAM_TOKEN=$TELEGRAM_TOKEN"
+            echo "TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID"
+            echo "SEC_USER_AGENT=${SEC_USER_AGENT:-agente-noticias tu-email@dominio.com}"
+            echo "TZ_USUARIO=Europe/Madrid"
+            echo ""
+            echo "# --- Opcional (descomenta para cambiarlo) ---"
+            echo "# UNIVERSO=sp500"
+            echo "# TOP_DIARIO=8"
+            echo "# TOP_SEMANAL=15"
+            echo "# UMBRAL_FINAL=50"
+          } > .env
+          wc -c .env | awk '{print "Bytes escritos: " $1}'
+
+      - name: Subir .env
+        uses: actions/upload-artifact@v4
+        with:
+          name: env-local
+          path: .env
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Instrucciones
+        run: |
+          {
+            echo "### 🔑 Tu archivo .env está listo"
+            echo ""
+            echo "1. Descárgalo del artefacto **env-local** (abajo, en esta misma ejecución)."
+            echo "2. Descomprímelo y mueve el \`.env\` a la carpeta del proyecto."
+            echo "3. En tu máquina: \`chmod 600 .env\` y \`python configurar.py --probar\`."
+            echo ""
+            echo "**Cuando lo tengas, borra el artefacto** (botón de la papelera junto a"
+            echo "*env-local*): contiene tus credenciales en texto plano. Caduca en 1 día."
+          } >> "$GITHUB_STEP_SUMMARY"

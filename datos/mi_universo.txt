@@ -1,0 +1,11 @@
+# Tu propia lista de valores para el detector de oportunidades.
+# Un ticker por línea. Las líneas que empiezan por # se ignoran.
+# Se admiten símbolos de Yahoo Finance: acciones US, .MC (Madrid), .DE, ETFs...
+#
+# Ejemplos (descomenta o sustituye por los tuyos):
+# AAPL
+# MSFT
+# NVDA
+# SAN.MC
+# ITX.MC
+# IB E.DE

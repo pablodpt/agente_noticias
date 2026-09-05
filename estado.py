@@ -10,6 +10,13 @@ log = logging.getLogger(__name__)
 
 
 class Estado:
+    """Registro de lo ya notificado, con TTL por entrada.
+
+    Cada entrada guarda la marca de tiempo y, opcionalmente, cuántas horas
+    debe permanecer silenciada (por defecto TTL_DEDUP_HORAS). Se mantiene la
+    compatibilidad con los estados antiguos, que eran solo una cadena ISO.
+    """
+
     def __init__(self, ruta: str = ARCHIVO_ESTADO):
         self.ruta = ruta
         self.datos = {"vistos": {}, "ultimo_boletin": None}
@@ -25,17 +32,25 @@ class Estado:
         self._purgar()
 
     def _purgar(self):
-        limite = datetime.now(timezone.utc) - timedelta(hours=TTL_DEDUP_HORAS)
-        self.datos["vistos"] = {
-            k: v for k, v in self.datos.get("vistos", {}).items()
-            if _parse(v) and _parse(v) > limite
-        }
+        ahora = datetime.now(timezone.utc)
+        vivos = {}
+        for k, v in self.datos.get("vistos", {}).items():
+            marca = _parse(v["ts"] if isinstance(v, dict) else v)
+            if marca is None:
+                continue
+            ttl = v.get("ttl", TTL_DEDUP_HORAS) if isinstance(v, dict) else TTL_DEDUP_HORAS
+            if ahora - marca < timedelta(hours=ttl):
+                vivos[k] = v
+        self.datos["vistos"] = vivos
 
     def ya_visto(self, clave: str) -> bool:
         return clave in self.datos["vistos"]
 
-    def marcar(self, clave: str):
-        self.datos["vistos"][clave] = datetime.now(timezone.utc).isoformat()
+    def marcar(self, clave: str, ttl_horas: float | None = None):
+        entrada = {"ts": datetime.now(timezone.utc).isoformat()}
+        if ttl_horas is not None:
+            entrada["ttl"] = ttl_horas
+        self.datos["vistos"][clave] = entrada
 
     def boletin_enviado_hoy(self, hoy: str) -> bool:
         return self.datos.get("ultimo_boletin") == hoy

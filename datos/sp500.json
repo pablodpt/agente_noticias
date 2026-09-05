@@ -1,0 +1,2466 @@
+{
+"actualizado": "2026-09-01",
+"fuente": "lista de respaldo empaquetada",
+"empresas": [
+{
+"t": "AAPL",
+"n": "Apple Inc.",
+"s": "Information Technology"
+},
+{
+"t": "ACN",
+"n": "Accenture plc",
+"s": "Information Technology"
+},
+{
+"t": "ADBE",
+"n": "Adobe Inc.",
+"s": "Information Technology"
+},
+{
+"t": "ADI",
+"n": "Analog Devices Inc.",
+"s": "Information Technology"
+},
+{
+"t": "ADSK",
+"n": "Autodesk Inc.",
+"s": "Information Technology"
+},
+{
+"t": "AKAM",
+"n": "Akamai Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "AMD",
+"n": "Advanced Micro Devices Inc.",
+"s": "Information Technology"
+},
+{
+"t": "AMAT",
+"n": "Applied Materials Inc.",
+"s": "Information Technology"
+},
+{
+"t": "ANET",
+"n": "Arista Networks Inc.",
+"s": "Information Technology"
+},
+{
+"t": "APH",
+"n": "Amphenol Corp.",
+"s": "Information Technology"
+},
+{
+"t": "APP",
+"n": "AppLovin Corp.",
+"s": "Information Technology"
+},
+{
+"t": "AVGO",
+"n": "Broadcom Inc.",
+"s": "Information Technology"
+},
+{
+"t": "BR",
+"n": "Broadridge Financial Solutions Inc.",
+"s": "Information Technology"
+},
+{
+"t": "CDNS",
+"n": "Cadence Design Systems Inc.",
+"s": "Information Technology"
+},
+{
+"t": "CDW",
+"n": "CDW Corp.",
+"s": "Information Technology"
+},
+{
+"t": "CRM",
+"n": "Salesforce Inc.",
+"s": "Information Technology"
+},
+{
+"t": "CSCO",
+"n": "Cisco Systems Inc.",
+"s": "Information Technology"
+},
+{
+"t": "CTSH",
+"n": "Cognizant Technology Solutions Corp.",
+"s": "Information Technology"
+},
+{
+"t": "DELL",
+"n": "Dell Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "ENTG",
+"n": "Entegris Inc.",
+"s": "Information Technology"
+},
+{
+"t": "FFIV",
+"n": "F5 Inc.",
+"s": "Information Technology"
+},
+{
+"t": "FTNT",
+"n": "Fortinet Inc.",
+"s": "Information Technology"
+},
+{
+"t": "GLW",
+"n": "Corning Inc.",
+"s": "Information Technology"
+},
+{
+"t": "HPE",
+"n": "Hewlett Packard Enterprise Co.",
+"s": "Information Technology"
+},
+{
+"t": "HPQ",
+"n": "HP Inc.",
+"s": "Information Technology"
+},
+{
+"t": "IBM",
+"n": "International Business Machines Corp.",
+"s": "Information Technology"
+},
+{
+"t": "INTC",
+"n": "Intel Corp.",
+"s": "Information Technology"
+},
+{
+"t": "INTU",
+"n": "Intuit Inc.",
+"s": "Information Technology"
+},
+{
+"t": "JKHY",
+"n": "Jack Henry & Associates Inc.",
+"s": "Information Technology"
+},
+{
+"t": "KEYS",
+"n": "Keysight Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "KLAC",
+"n": "KLA Corp.",
+"s": "Information Technology"
+},
+{
+"t": "LRCX",
+"n": "Lam Research Corp.",
+"s": "Information Technology"
+},
+{
+"t": "MCHP",
+"n": "Microchip Technology Inc.",
+"s": "Information Technology"
+},
+{
+"t": "MRVL",
+"n": "Marvell Technology Inc.",
+"s": "Information Technology"
+},
+{
+"t": "MSFT",
+"n": "Microsoft Corp.",
+"s": "Information Technology"
+},
+{
+"t": "MSI",
+"n": "Motorola Solutions Inc.",
+"s": "Information Technology"
+},
+{
+"t": "MU",
+"n": "Micron Technology Inc.",
+"s": "Information Technology"
+},
+{
+"t": "NOW",
+"n": "ServiceNow Inc.",
+"s": "Information Technology"
+},
+{
+"t": "NTAP",
+"n": "NetApp Inc.",
+"s": "Information Technology"
+},
+{
+"t": "NVDA",
+"n": "NVIDIA Corp.",
+"s": "Information Technology"
+},
+{
+"t": "NXPI",
+"n": "NXP Semiconductors NV",
+"s": "Information Technology"
+},
+{
+"t": "ON",
+"n": "ON Semiconductor Corp.",
+"s": "Information Technology"
+},
+{
+"t": "ORCL",
+"n": "Oracle Corp.",
+"s": "Information Technology"
+},
+{
+"t": "PANW",
+"n": "Palo Alto Networks Inc.",
+"s": "Information Technology"
+},
+{
+"t": "PLTR",
+"n": "Palantir Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "PTC",
+"n": "PTC Inc.",
+"s": "Information Technology"
+},
+{
+"t": "QCOM",
+"n": "QUALCOMM Inc.",
+"s": "Information Technology"
+},
+{
+"t": "ROP",
+"n": "Roper Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "SMCI",
+"n": "Super Micro Computer Inc.",
+"s": "Information Technology"
+},
+{
+"t": "SNPS",
+"n": "Synopsys Inc.",
+"s": "Information Technology"
+},
+{
+"t": "STX",
+"n": "Seagate Technology Holdings plc",
+"s": "Information Technology"
+},
+{
+"t": "SWKS",
+"n": "Skyworks Solutions Inc.",
+"s": "Information Technology"
+},
+{
+"t": "TDY",
+"n": "Teledyne Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "TER",
+"n": "Teradyne Inc.",
+"s": "Information Technology"
+},
+{
+"t": "TRMB",
+"n": "Trimble Inc.",
+"s": "Information Technology"
+},
+{
+"t": "TXN",
+"n": "Texas Instruments Inc.",
+"s": "Information Technology"
+},
+{
+"t": "TYL",
+"n": "Tyler Technologies Inc.",
+"s": "Information Technology"
+},
+{
+"t": "VRSN",
+"n": "VeriSign Inc.",
+"s": "Information Technology"
+},
+{
+"t": "WDC",
+"n": "Western Digital Corp.",
+"s": "Information Technology"
+},
+{
+"t": "FSLR",
+"n": "First Solar Inc.",
+"s": "Information Technology"
+},
+{
+"t": "FICO",
+"n": "Fair Isaac Corp.",
+"s": "Information Technology"
+},
+{
+"t": "FI",
+"n": "Fiserv Inc.",
+"s": "Information Technology"
+},
+{
+"t": "FIS",
+"n": "Fidelity National Information Services Inc.",
+"s": "Information Technology"
+},
+{
+"t": "GPN",
+"n": "Global Payments Inc.",
+"s": "Information Technology"
+},
+{
+"t": "PYPL",
+"n": "PayPal Holdings Inc.",
+"s": "Information Technology"
+},
+{
+"t": "AFL",
+"n": "Aflac Inc.",
+"s": "Financials"
+},
+{
+"t": "AIG",
+"n": "American International Group Inc.",
+"s": "Financials"
+},
+{
+"t": "AIZ",
+"n": "Assurant Inc.",
+"s": "Financials"
+},
+{
+"t": "AJG",
+"n": "Arthur J. Gallagher & Co.",
+"s": "Financials"
+},
+{
+"t": "ALL",
+"n": "The Allstate Corp.",
+"s": "Financials"
+},
+{
+"t": "AMG",
+"n": "Affiliated Managers Group Inc.",
+"s": "Financials"
+},
+{
+"t": "AMP",
+"n": "Ameriprise Financial Inc.",
+"s": "Financials"
+},
+{
+"t": "AMT",
+"n": "American Tower Corp.",
+"s": "Real Estate"
+},
+{
+"t": "AON",
+"n": "Aon plc",
+"s": "Financials"
+},
+{
+"t": "AXP",
+"n": "American Express Co.",
+"s": "Financials"
+},
+{
+"t": "BEN",
+"n": "Franklin Resources Inc.",
+"s": "Financials"
+},
+{
+"t": "BHF",
+"n": "Brighthouse Financial Inc.",
+"s": "Financials"
+},
+{
+"t": "BK",
+"n": "The Bank of New York Mellon Corp.",
+"s": "Financials"
+},
+{
+"t": "BLK",
+"n": "BlackRock Inc.",
+"s": "Financials"
+},
+{
+"t": "BRK-B",
+"n": "Berkshire Hathaway Inc.",
+"s": "Financials"
+},
+{
+"t": "BRO",
+"n": "Brown & Brown Inc.",
+"s": "Financials"
+},
+{
+"t": "C",
+"n": "Citigroup Inc.",
+"s": "Financials"
+},
+{
+"t": "CB",
+"n": "Chubb Ltd.",
+"s": "Financials"
+},
+{
+"t": "CBOE",
+"n": "Cboe Global Markets Inc.",
+"s": "Financials"
+},
+{
+"t": "CFG",
+"n": "Citizens Financial Group Inc.",
+"s": "Financials"
+},
+{
+"t": "CINF",
+"n": "Cincinnati Financial Corp.",
+"s": "Financials"
+},
+{
+"t": "CME",
+"n": "CME Group Inc.",
+"s": "Financials"
+},
+{
+"t": "COF",
+"n": "Capital One Financial Corp.",
+"s": "Financials"
+},
+{
+"t": "EG",
+"n": "Everest Group Ltd.",
+"s": "Financials"
+},
+{
+"t": "ERIE",
+"n": "Erie Indemnity Co.",
+"s": "Financials"
+},
+{
+"t": "FDS",
+"n": "FactSet Research Systems Inc.",
+"s": "Financials"
+},
+{
+"t": "FITB",
+"n": "Fifth Third Bancorp",
+"s": "Financials"
+},
+{
+"t": "GL",
+"n": "Globe Life Inc.",
+"s": "Financials"
+},
+{
+"t": "GS",
+"n": "The Goldman Sachs Group Inc.",
+"s": "Financials"
+},
+{
+"t": "HBAN",
+"n": "Huntington Bancshares Inc.",
+"s": "Financials"
+},
+{
+"t": "HIG",
+"n": "The Hartford Insurance Group Inc.",
+"s": "Financials"
+},
+{
+"t": "HOOD",
+"n": "Robinhood Markets Inc.",
+"s": "Financials"
+},
+{
+"t": "ICE",
+"n": "Intercontinental Exchange Inc.",
+"s": "Financials"
+},
+{
+"t": "IVZ",
+"n": "Invesco Ltd.",
+"s": "Financials"
+},
+{
+"t": "JPM",
+"n": "JPMorgan Chase & Co.",
+"s": "Financials"
+},
+{
+"t": "KEY",
+"n": "KeyCorp",
+"s": "Financials"
+},
+{
+"t": "L",
+"n": "Loews Corp.",
+"s": "Financials"
+},
+{
+"t": "MA",
+"n": "Mastercard Inc.",
+"s": "Financials"
+},
+{
+"t": "MCO",
+"n": "Moody's Corp.",
+"s": "Financials"
+},
+{
+"t": "MET",
+"n": "MetLife Inc.",
+"s": "Financials"
+},
+{
+"t": "MMC",
+"n": "Marsh & McLennan Companies Inc.",
+"s": "Financials"
+},
+{
+"t": "MS",
+"n": "Morgan Stanley",
+"s": "Financials"
+},
+{
+"t": "MSCI",
+"n": "MSCI Inc.",
+"s": "Financials"
+},
+{
+"t": "MTB",
+"n": "M&T Bank Corp.",
+"s": "Financials"
+},
+{
+"t": "NDAQ",
+"n": "Nasdaq Inc.",
+"s": "Financials"
+},
+{
+"t": "NTRS",
+"n": "Northern Trust Corp.",
+"s": "Financials"
+},
+{
+"t": "PFG",
+"n": "Principal Financial Group Inc.",
+"s": "Financials"
+},
+{
+"t": "PGR",
+"n": "The Progressive Corp.",
+"s": "Financials"
+},
+{
+"t": "PNC",
+"n": "The PNC Financial Services Group Inc.",
+"s": "Financials"
+},
+{
+"t": "PRU",
+"n": "Prudential Financial Inc.",
+"s": "Financials"
+},
+{
+"t": "RE",
+"n": "RenaissanceRe Holdings Ltd.",
+"s": "Financials"
+},
+{
+"t": "RF",
+"n": "Regions Financial Corp.",
+"s": "Financials"
+},
+{
+"t": "RGA",
+"n": "Reinsurance Group of America Inc.",
+"s": "Financials"
+},
+{
+"t": "RJF",
+"n": "Raymond James Financial Inc.",
+"s": "Financials"
+},
+{
+"t": "SCHW",
+"n": "The Charles Schwab Corp.",
+"s": "Financials"
+},
+{
+"t": "SPGI",
+"n": "S&P Global Inc.",
+"s": "Financials"
+},
+{
+"t": "STT",
+"n": "State Street Corp.",
+"s": "Financials"
+},
+{
+"t": "SYF",
+"n": "Synchrony Financial",
+"s": "Financials"
+},
+{
+"t": "TFC",
+"n": "Truist Financial Corp.",
+"s": "Financials"
+},
+{
+"t": "TROW",
+"n": "T. Rowe Price Group Inc.",
+"s": "Financials"
+},
+{
+"t": "TRV",
+"n": "The Travelers Companies Inc.",
+"s": "Financials"
+},
+{
+"t": "UNM",
+"n": "Unum Group",
+"s": "Financials"
+},
+{
+"t": "USB",
+"n": "U.S. Bancorp",
+"s": "Financials"
+},
+{
+"t": "V",
+"n": "Visa Inc.",
+"s": "Financials"
+},
+{
+"t": "WFC",
+"n": "Wells Fargo & Co.",
+"s": "Financials"
+},
+{
+"t": "WRB",
+"n": "W.R. Berkley Corp.",
+"s": "Financials"
+},
+{
+"t": "WTW",
+"n": "Willis Towers Watson plc",
+"s": "Financials"
+},
+{
+"t": "XYZ",
+"n": "Block Inc.",
+"s": "Financials"
+},
+{
+"t": "ZION",
+"n": "Zions Bancorporation NA",
+"s": "Financials"
+},
+{
+"t": "A",
+"n": "Agilent Technologies Inc.",
+"s": "Health Care"
+},
+{
+"t": "ABBV",
+"n": "AbbVie Inc.",
+"s": "Health Care"
+},
+{
+"t": "ABT",
+"n": "Abbott Laboratories",
+"s": "Health Care"
+},
+{
+"t": "ALC",
+"n": "Alcon Inc.",
+"s": "Health Care"
+},
+{
+"t": "ALGN",
+"n": "Align Technology Inc.",
+"s": "Health Care"
+},
+{
+"t": "AMGN",
+"n": "Amgen Inc.",
+"s": "Health Care"
+},
+{
+"t": "BAX",
+"n": "Baxter International Inc.",
+"s": "Health Care"
+},
+{
+"t": "BDX",
+"n": "Becton Dickinson & Co.",
+"s": "Health Care"
+},
+{
+"t": "BIIB",
+"n": "Biogen Inc.",
+"s": "Health Care"
+},
+{
+"t": "BIO",
+"n": "Bio-Rad Laboratories Inc.",
+"s": "Health Care"
+},
+{
+"t": "BMY",
+"n": "Bristol-Myers Squibb Co.",
+"s": "Health Care"
+},
+{
+"t": "BSX",
+"n": "Boston Scientific Corp.",
+"s": "Health Care"
+},
+{
+"t": "CAH",
+"n": "Cardinal Health Inc.",
+"s": "Health Care"
+},
+{
+"t": "CNC",
+"n": "Centene Corp.",
+"s": "Health Care"
+},
+{
+"t": "COO",
+"n": "The Cooper Companies Inc.",
+"s": "Health Care"
+},
+{
+"t": "COR",
+"n": "Cencora Inc.",
+"s": "Health Care"
+},
+{
+"t": "CRL",
+"n": "Charles River Laboratories International Inc.",
+"s": "Health Care"
+},
+{
+"t": "CVS",
+"n": "CVS Health Corp.",
+"s": "Health Care"
+},
+{
+"t": "DHR",
+"n": "Danaher Corp.",
+"s": "Health Care"
+},
+{
+"t": "DVA",
+"n": "DaVita Inc.",
+"s": "Health Care"
+},
+{
+"t": "DXCM",
+"n": "DexCom Inc.",
+"s": "Health Care"
+},
+{
+"t": "ELV",
+"n": "Elevance Health Inc.",
+"s": "Health Care"
+},
+{
+"t": "EW",
+"n": "Edwards Lifesciences Corp.",
+"s": "Health Care"
+},
+{
+"t": "GEHC",
+"n": "GE HealthCare Technologies Inc.",
+"s": "Health Care"
+},
+{
+"t": "GILD",
+"n": "Gilead Sciences Inc.",
+"s": "Health Care"
+},
+{
+"t": "HSIC",
+"n": "Henry Schein Inc.",
+"s": "Health Care"
+},
+{
+"t": "HUM",
+"n": "Humana Inc.",
+"s": "Health Care"
+},
+{
+"t": "IDXX",
+"n": "IDEXX Laboratories Inc.",
+"s": "Health Care"
+},
+{
+"t": "INCY",
+"n": "Incyte Corp.",
+"s": "Health Care"
+},
+{
+"t": "IQV",
+"n": "IQVIA Holdings Inc.",
+"s": "Health Care"
+},
+{
+"t": "ISRG",
+"n": "Intuitive Surgical Inc.",
+"s": "Health Care"
+},
+{
+"t": "JNJ",
+"n": "Johnson & Johnson",
+"s": "Health Care"
+},
+{
+"t": "LH",
+"n": "Labcorp Holdings Inc.",
+"s": "Health Care"
+},
+{
+"t": "LLY",
+"n": "Eli Lilly & Co.",
+"s": "Health Care"
+},
+{
+"t": "MCK",
+"n": "McKesson Corp.",
+"s": "Health Care"
+},
+{
+"t": "MDT",
+"n": "Medtronic plc",
+"s": "Health Care"
+},
+{
+"t": "MOH",
+"n": "Molina Healthcare Inc.",
+"s": "Health Care"
+},
+{
+"t": "MRNA",
+"n": "Moderna Inc.",
+"s": "Health Care"
+},
+{
+"t": "MRK",
+"n": "Merck & Co. Inc.",
+"s": "Health Care"
+},
+{
+"t": "MTD",
+"n": "Mettler-Toledo International Inc.",
+"s": "Health Care"
+},
+{
+"t": "OGN",
+"n": "Organon & Co.",
+"s": "Health Care"
+},
+{
+"t": "PFE",
+"n": "Pfizer Inc.",
+"s": "Health Care"
+},
+{
+"t": "PODD",
+"n": "Insulet Corp.",
+"s": "Health Care"
+},
+{
+"t": "RMD",
+"n": "ResMed Inc.",
+"s": "Health Care"
+},
+{
+"t": "RVTY",
+"n": "Revvity Inc.",
+"s": "Health Care"
+},
+{
+"t": "SOLV",
+"n": "Solventum Corp.",
+"s": "Health Care"
+},
+{
+"t": "STE",
+"n": "STERIS plc",
+"s": "Health Care"
+},
+{
+"t": "SYK",
+"n": "Stryker Corp.",
+"s": "Health Care"
+},
+{
+"t": "TECH",
+"n": "Bio-Techne Corp.",
+"s": "Health Care"
+},
+{
+"t": "TFX",
+"n": "Teleflex Inc.",
+"s": "Health Care"
+},
+{
+"t": "TMO",
+"n": "Thermo Fisher Scientific Inc.",
+"s": "Health Care"
+},
+{
+"t": "UHS",
+"n": "Universal Health Services Inc.",
+"s": "Health Care"
+},
+{
+"t": "UNH",
+"n": "UnitedHealth Group Inc.",
+"s": "Health Care"
+},
+{
+"t": "VTRS",
+"n": "Viatris Inc.",
+"s": "Health Care"
+},
+{
+"t": "WAT",
+"n": "Waters Corp.",
+"s": "Health Care"
+},
+{
+"t": "WST",
+"n": "West Pharmaceutical Services Inc.",
+"s": "Health Care"
+},
+{
+"t": "ZBH",
+"n": "Zimmer Biomet Holdings Inc.",
+"s": "Health Care"
+},
+{
+"t": "ZTS",
+"n": "Zoetis Inc.",
+"s": "Health Care"
+},
+{
+"t": "AMZN",
+"n": "Amazon.com Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "APTV",
+"n": "Aptiv plc",
+"s": "Consumer Discretionary"
+},
+{
+"t": "AZO",
+"n": "AutoZone Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "BBWI",
+"n": "Bath & Body Works Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "BBY",
+"n": "Best Buy Co. Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "BKNG",
+"n": "Booking Holdings Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "CCL",
+"n": "Carnival Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "CMG",
+"n": "Chipotle Mexican Grill Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "DASH",
+"n": "DoorDash Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "DECK",
+"n": "Deckers Outdoor Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "DHI",
+"n": "D.R. Horton Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "DPZ",
+"n": "Domino's Pizza Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "DRI",
+"n": "Darden Restaurants Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "EBAY",
+"n": "eBay Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "ETSY",
+"n": "Etsy Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "EXPE",
+"n": "Expedia Group Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "F",
+"n": "Ford Motor Co.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "FND",
+"n": "Floor & Decor Holdings Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "GM",
+"n": "General Motors Co.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "GPC",
+"n": "Genuine Parts Co.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "GRMN",
+"n": "Garmin Ltd.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "HD",
+"n": "The Home Depot Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "HLT",
+"n": "Hilton Worldwide Holdings Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "HOG",
+"n": "Harley-Davidson Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "KBH",
+"n": "KB Home",
+"s": "Consumer Discretionary"
+},
+{
+"t": "LEN",
+"n": "Lennar Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "LEVI",
+"n": "Levi Strauss & Co.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "LOW",
+"n": "Lowe's Companies Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "LULU",
+"n": "Lululemon Athletica Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "LVS",
+"n": "Las Vegas Sands Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "MAR",
+"n": "Marriott International Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "MCD",
+"n": "McDonald's Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "MGM",
+"n": "MGM Resorts International",
+"s": "Consumer Discretionary"
+},
+{
+"t": "NKE",
+"n": "NIKE Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "NVR",
+"n": "NVR Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "ORLY",
+"n": "O'Reilly Automotive Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "PHM",
+"n": "PulteGroup Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "POOL",
+"n": "Pool Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "PVH",
+"n": "PVH Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "RCL",
+"n": "Royal Caribbean Cruises Ltd.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "RH",
+"n": "RH",
+"s": "Consumer Discretionary"
+},
+{
+"t": "RL",
+"n": "Ralph Lauren Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "ROL",
+"n": "Rollins Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "ROST",
+"n": "Ross Stores Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "SBUX",
+"n": "Starbucks Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "TJX",
+"n": "The TJX Companies Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "TOL",
+"n": "Toll Brothers Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "TPR",
+"n": "Tapestry Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "TSCO",
+"n": "Tractor Supply Co.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "TSLA",
+"n": "Tesla Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "VFC",
+"n": "VF Corp.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "W",
+"n": "Wayfair Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "WSM",
+"n": "Williams-Sonoma Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "WYNN",
+"n": "Wynn Resorts Ltd.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "YUM",
+"n": "Yum! Brands Inc.",
+"s": "Consumer Discretionary"
+},
+{
+"t": "ADM",
+"n": "Archer-Daniels-Midland Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "CAG",
+"n": "Conagra Brands Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "CHD",
+"n": "Church & Dwight Co. Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "CL",
+"n": "Colgate-Palmolive Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "CLX",
+"n": "The Clorox Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "COST",
+"n": "Costco Wholesale Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "CPB",
+"n": "The Campbell's Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "DG",
+"n": "Dollar General Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "DLTR",
+"n": "Dollar Tree Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "EL",
+"n": "The Estee Lauder Companies Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "FLO",
+"n": "Flowers Foods Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "GIS",
+"n": "General Mills Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "HRL",
+"n": "Hormel Foods Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "HSY",
+"n": "The Hershey Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "KDP",
+"n": "Keurig Dr Pepper Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "KHC",
+"n": "The Kraft Heinz Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "KMB",
+"n": "Kimberly-Clark Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "KO",
+"n": "The Coca-Cola Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "KR",
+"n": "The Kroger Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "LANC",
+"n": "Lancaster Colony Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "MKC",
+"n": "McCormick & Co. Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "MO",
+"n": "Altria Group Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "PEP",
+"n": "PepsiCo Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "PG",
+"n": "The Procter & Gamble Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "PM",
+"n": "Philip Morris International Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "POST",
+"n": "Post Holdings Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "SJM",
+"n": "The J. M. Smucker Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "STZ",
+"n": "Constellation Brands Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "SYY",
+"n": "Sysco Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "TAP",
+"n": "Molson Coors Beverage Co.",
+"s": "Consumer Staples"
+},
+{
+"t": "TGT",
+"n": "Target Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "TSN",
+"n": "Tyson Foods Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "WMT",
+"n": "Walmart Inc.",
+"s": "Consumer Staples"
+},
+{
+"t": "BF-B",
+"n": "Brown-Forman Corp.",
+"s": "Consumer Staples"
+},
+{
+"t": "CMCSA",
+"n": "Comcast Corp.",
+"s": "Communication Services"
+},
+{
+"t": "DIS",
+"n": "The Walt Disney Co.",
+"s": "Communication Services"
+},
+{
+"t": "EA",
+"n": "Electronic Arts Inc.",
+"s": "Communication Services"
+},
+{
+"t": "FOXA",
+"n": "Fox Corp.",
+"s": "Communication Services"
+},
+{
+"t": "GOOGL",
+"n": "Alphabet Inc.",
+"s": "Communication Services"
+},
+{
+"t": "IPG",
+"n": "The Interpublic Group of Companies Inc.",
+"s": "Communication Services"
+},
+{
+"t": "LYV",
+"n": "Live Nation Entertainment Inc.",
+"s": "Communication Services"
+},
+{
+"t": "META",
+"n": "Meta Platforms Inc.",
+"s": "Communication Services"
+},
+{
+"t": "NFLX",
+"n": "Netflix Inc.",
+"s": "Communication Services"
+},
+{
+"t": "NWSA",
+"n": "News Corp.",
+"s": "Communication Services"
+},
+{
+"t": "NYT",
+"n": "The New York Times Co.",
+"s": "Communication Services"
+},
+{
+"t": "OMC",
+"n": "Omnicom Group Inc.",
+"s": "Communication Services"
+},
+{
+"t": "T",
+"n": "AT&T Inc.",
+"s": "Communication Services"
+},
+{
+"t": "TMUS",
+"n": "T-Mobile US Inc.",
+"s": "Communication Services"
+},
+{
+"t": "TTWO",
+"n": "Take-Two Interactive Software Inc.",
+"s": "Communication Services"
+},
+{
+"t": "VZ",
+"n": "Verizon Communications Inc.",
+"s": "Communication Services"
+},
+{
+"t": "WBD",
+"n": "Warner Bros. Discovery Inc.",
+"s": "Communication Services"
+},
+{
+"t": "ACM",
+"n": "AECOM",
+"s": "Industrials"
+},
+{
+"t": "ADP",
+"n": "Automatic Data Processing Inc.",
+"s": "Industrials"
+},
+{
+"t": "AGCO",
+"n": "AGCO Corp.",
+"s": "Industrials"
+},
+{
+"t": "AME",
+"n": "AMETEK Inc.",
+"s": "Industrials"
+},
+{
+"t": "AOS",
+"n": "A. O. Smith Corp.",
+"s": "Industrials"
+},
+{
+"t": "AXON",
+"n": "Axon Enterprise Inc.",
+"s": "Industrials"
+},
+{
+"t": "AYI",
+"n": "Acuity Brands Inc.",
+"s": "Industrials"
+},
+{
+"t": "BA",
+"n": "The Boeing Co.",
+"s": "Industrials"
+},
+{
+"t": "BAH",
+"n": "Booz Allen Hamilton Holding Corp.",
+"s": "Industrials"
+},
+{
+"t": "BLD",
+"n": "TopBuild Corp.",
+"s": "Industrials"
+},
+{
+"t": "BLDR",
+"n": "Builders FirstSource Inc.",
+"s": "Industrials"
+},
+{
+"t": "BWXT",
+"n": "BWX Technologies Inc.",
+"s": "Industrials"
+},
+{
+"t": "CACI",
+"n": "CACI International Inc.",
+"s": "Industrials"
+},
+{
+"t": "CARR",
+"n": "Carrier Global Corp.",
+"s": "Industrials"
+},
+{
+"t": "CAT",
+"n": "Caterpillar Inc.",
+"s": "Industrials"
+},
+{
+"t": "CHRW",
+"n": "C.H. Robinson Worldwide Inc.",
+"s": "Industrials"
+},
+{
+"t": "CPRT",
+"n": "Copart Inc.",
+"s": "Industrials"
+},
+{
+"t": "CSL",
+"n": "Carlisle Companies Inc.",
+"s": "Industrials"
+},
+{
+"t": "CTAS",
+"n": "Cintas Corp.",
+"s": "Industrials"
+},
+{
+"t": "CW",
+"n": "Curtiss-Wright Corp.",
+"s": "Industrials"
+},
+{
+"t": "DE",
+"n": "Deere & Co.",
+"s": "Industrials"
+},
+{
+"t": "DOV",
+"n": "Dover Corp.",
+"s": "Industrials"
+},
+{
+"t": "EFX",
+"n": "Equifax Inc.",
+"s": "Industrials"
+},
+{
+"t": "EME",
+"n": "EMCOR Group Inc.",
+"s": "Industrials"
+},
+{
+"t": "EMR",
+"n": "Emerson Electric Co.",
+"s": "Industrials"
+},
+{
+"t": "EXPD",
+"n": "Expeditors International of Washington Inc.",
+"s": "Industrials"
+},
+{
+"t": "FAST",
+"n": "Fastenal Co.",
+"s": "Industrials"
+},
+{
+"t": "FBIN",
+"n": "Fortune Brands Innovations Inc.",
+"s": "Industrials"
+},
+{
+"t": "FDX",
+"n": "FedEx Corp.",
+"s": "Industrials"
+},
+{
+"t": "FLS",
+"n": "Flowserve Corp.",
+"s": "Industrials"
+},
+{
+"t": "FTV",
+"n": "Fortive Corp.",
+"s": "Industrials"
+},
+{
+"t": "GD",
+"n": "General Dynamics Corp.",
+"s": "Industrials"
+},
+{
+"t": "GE",
+"n": "GE Aerospace",
+"s": "Industrials"
+},
+{
+"t": "GEV",
+"n": "GE Vernova Inc.",
+"s": "Industrials"
+},
+{
+"t": "GGG",
+"n": "Graco Inc.",
+"s": "Industrials"
+},
+{
+"t": "GNRC",
+"n": "Generac Holdings Inc.",
+"s": "Industrials"
+},
+{
+"t": "GWW",
+"n": "W.W. Grainger Inc.",
+"s": "Industrials"
+},
+{
+"t": "HEI",
+"n": "HEICO Corp.",
+"s": "Industrials"
+},
+{
+"t": "HII",
+"n": "Huntington Ingalls Industries Inc.",
+"s": "Industrials"
+},
+{
+"t": "HON",
+"n": "Honeywell International Inc.",
+"s": "Industrials"
+},
+{
+"t": "HUBB",
+"n": "Hubbell Inc.",
+"s": "Industrials"
+},
+{
+"t": "HWM",
+"n": "Howmet Aerospace Inc.",
+"s": "Industrials"
+},
+{
+"t": "HXL",
+"n": "Hexcel Corp.",
+"s": "Industrials"
+},
+{
+"t": "IEX",
+"n": "IDEX Corp.",
+"s": "Industrials"
+},
+{
+"t": "ITT",
+"n": "ITT Inc.",
+"s": "Industrials"
+},
+{
+"t": "J",
+"n": "Jacobs Solutions Inc.",
+"s": "Industrials"
+},
+{
+"t": "JBHT",
+"n": "J.B. Hunt Transport Services Inc.",
+"s": "Industrials"
+},
+{
+"t": "JCI",
+"n": "Johnson Controls International plc",
+"s": "Industrials"
+},
+{
+"t": "LDOS",
+"n": "Leidos Holdings Inc.",
+"s": "Industrials"
+},
+{
+"t": "LHX",
+"n": "L3Harris Technologies Inc.",
+"s": "Industrials"
+},
+{
+"t": "LII",
+"n": "Lennox International Inc.",
+"s": "Industrials"
+},
+{
+"t": "LMT",
+"n": "Lockheed Martin Corp.",
+"s": "Industrials"
+},
+{
+"t": "MAS",
+"n": "Masco Corp.",
+"s": "Industrials"
+},
+{
+"t": "MTZ",
+"n": "MasTec Inc.",
+"s": "Industrials"
+},
+{
+"t": "NOC",
+"n": "Northrop Grumman Corp.",
+"s": "Industrials"
+},
+{
+"t": "NVT",
+"n": "nVent Electric plc",
+"s": "Industrials"
+},
+{
+"t": "OC",
+"n": "Owens Corning",
+"s": "Industrials"
+},
+{
+"t": "ODFL",
+"n": "Old Dominion Freight Line Inc.",
+"s": "Industrials"
+},
+{
+"t": "OSK",
+"n": "Oshkosh Corp.",
+"s": "Industrials"
+},
+{
+"t": "PAYX",
+"n": "Paychex Inc.",
+"s": "Industrials"
+},
+{
+"t": "PCAR",
+"n": "PACCAR Inc.",
+"s": "Industrials"
+},
+{
+"t": "PH",
+"n": "Parker-Hannifin Corp.",
+"s": "Industrials"
+},
+{
+"t": "PNR",
+"n": "Pentair plc",
+"s": "Industrials"
+},
+{
+"t": "PWR",
+"n": "Quanta Services Inc.",
+"s": "Industrials"
+},
+{
+"t": "R",
+"n": "Ryder System Inc.",
+"s": "Industrials"
+},
+{
+"t": "ROK",
+"n": "Rockwell Automation Inc.",
+"s": "Industrials"
+},
+{
+"t": "RSG",
+"n": "Republic Services Inc.",
+"s": "Industrials"
+},
+{
+"t": "RTX",
+"n": "RTX Corp.",
+"s": "Industrials"
+},
+{
+"t": "SAIA",
+"n": "Saia Inc.",
+"s": "Industrials"
+},
+{
+"t": "SAIC",
+"n": "Science Applications International Corp.",
+"s": "Industrials"
+},
+{
+"t": "SNA",
+"n": "Snap-on Inc.",
+"s": "Industrials"
+},
+{
+"t": "SWK",
+"n": "Stanley Black & Decker Inc.",
+"s": "Industrials"
+},
+{
+"t": "TDG",
+"n": "TransDigm Group Inc.",
+"s": "Industrials"
+},
+{
+"t": "TREX",
+"n": "Trex Co. Inc.",
+"s": "Industrials"
+},
+{
+"t": "TRU",
+"n": "TransUnion",
+"s": "Industrials"
+},
+{
+"t": "TT",
+"n": "Trane Technologies plc",
+"s": "Industrials"
+},
+{
+"t": "TTC",
+"n": "The Toro Co.",
+"s": "Industrials"
+},
+{
+"t": "TXT",
+"n": "Textron Inc.",
+"s": "Industrials"
+},
+{
+"t": "UPS",
+"n": "United Parcel Service Inc.",
+"s": "Industrials"
+},
+{
+"t": "URI",
+"n": "United Rentals Inc.",
+"s": "Industrials"
+},
+{
+"t": "VRSK",
+"n": "Verisk Analytics Inc.",
+"s": "Industrials"
+},
+{
+"t": "WAB",
+"n": "Westinghouse Air Brake Technologies Corp.",
+"s": "Industrials"
+},
+{
+"t": "WM",
+"n": "Waste Management Inc.",
+"s": "Industrials"
+},
+{
+"t": "WMS",
+"n": "Advanced Drainage Systems Inc.",
+"s": "Industrials"
+},
+{
+"t": "WWD",
+"n": "Woodward Inc.",
+"s": "Industrials"
+},
+{
+"t": "XYL",
+"n": "Xylem Inc.",
+"s": "Industrials"
+},
+{
+"t": "ZBRA",
+"n": "Zebra Technologies Corp.",
+"s": "Industrials"
+},
+{
+"t": "APA",
+"n": "APA Corp.",
+"s": "Energy"
+},
+{
+"t": "BKR",
+"n": "Baker Hughes Co.",
+"s": "Energy"
+},
+{
+"t": "COP",
+"n": "ConocoPhillips",
+"s": "Energy"
+},
+{
+"t": "CTRA",
+"n": "Coterra Energy Inc.",
+"s": "Energy"
+},
+{
+"t": "CVX",
+"n": "Chevron Corp.",
+"s": "Energy"
+},
+{
+"t": "DVN",
+"n": "Devon Energy Corp.",
+"s": "Energy"
+},
+{
+"t": "EOG",
+"n": "EOG Resources Inc.",
+"s": "Energy"
+},
+{
+"t": "EQT",
+"n": "EQT Corp.",
+"s": "Energy"
+},
+{
+"t": "FANG",
+"n": "Diamondback Energy Inc.",
+"s": "Energy"
+},
+{
+"t": "HAL",
+"n": "Halliburton Co.",
+"s": "Energy"
+},
+{
+"t": "KMI",
+"n": "Kinder Morgan Inc.",
+"s": "Energy"
+},
+{
+"t": "LNG",
+"n": "Cheniere Energy Inc.",
+"s": "Energy"
+},
+{
+"t": "MPC",
+"n": "Marathon Petroleum Corp.",
+"s": "Energy"
+},
+{
+"t": "OKE",
+"n": "ONEOK Inc.",
+"s": "Energy"
+},
+{
+"t": "PSX",
+"n": "Phillips 66",
+"s": "Energy"
+},
+{
+"t": "SLB",
+"n": "Schlumberger NV",
+"s": "Energy"
+},
+{
+"t": "TRGP",
+"n": "Targa Resources Corp.",
+"s": "Energy"
+},
+{
+"t": "VLO",
+"n": "Valero Energy Corp.",
+"s": "Energy"
+},
+{
+"t": "WMB",
+"n": "The Williams Companies Inc.",
+"s": "Energy"
+},
+{
+"t": "XOM",
+"n": "Exxon Mobil Corp.",
+"s": "Energy"
+},
+{
+"t": "AEE",
+"n": "Ameren Corp.",
+"s": "Utilities"
+},
+{
+"t": "AES",
+"n": "The AES Corp.",
+"s": "Utilities"
+},
+{
+"t": "AEP",
+"n": "American Electric Power Co. Inc.",
+"s": "Utilities"
+},
+{
+"t": "ATO",
+"n": "Atmos Energy Corp.",
+"s": "Utilities"
+},
+{
+"t": "CEG",
+"n": "Constellation Energy Corp.",
+"s": "Utilities"
+},
+{
+"t": "CMS",
+"n": "CMS Energy Corp.",
+"s": "Utilities"
+},
+{
+"t": "CNP",
+"n": "CenterPoint Energy Inc.",
+"s": "Utilities"
+},
+{
+"t": "D",
+"n": "Dominion Energy Inc.",
+"s": "Utilities"
+},
+{
+"t": "DTE",
+"n": "DTE Energy Co.",
+"s": "Utilities"
+},
+{
+"t": "DUK",
+"n": "Duke Energy Corp.",
+"s": "Utilities"
+},
+{
+"t": "ED",
+"n": "Consolidated Edison Inc.",
+"s": "Utilities"
+},
+{
+"t": "EIX",
+"n": "Edison International",
+"s": "Utilities"
+},
+{
+"t": "ES",
+"n": "Eversource Energy",
+"s": "Utilities"
+},
+{
+"t": "ETR",
+"n": "Entergy Corp.",
+"s": "Utilities"
+},
+{
+"t": "EVRG",
+"n": "Evergy Inc.",
+"s": "Utilities"
+},
+{
+"t": "EXC",
+"n": "Exelon Corp.",
+"s": "Utilities"
+},
+{
+"t": "FE",
+"n": "FirstEnergy Corp.",
+"s": "Utilities"
+},
+{
+"t": "LNT",
+"n": "Alliant Energy Corp.",
+"s": "Utilities"
+},
+{
+"t": "NEE",
+"n": "NextEra Energy Inc.",
+"s": "Utilities"
+},
+{
+"t": "NI",
+"n": "NiSource Inc.",
+"s": "Utilities"
+},
+{
+"t": "NRG",
+"n": "NRG Energy Inc.",
+"s": "Utilities"
+},
+{
+"t": "PCG",
+"n": "PG&E Corp.",
+"s": "Utilities"
+},
+{
+"t": "PEG",
+"n": "Public Service Enterprise Group Inc.",
+"s": "Utilities"
+},
+{
+"t": "PPL",
+"n": "PPL Corp.",
+"s": "Utilities"
+},
+{
+"t": "PNW",
+"n": "Pinnacle West Capital Corp.",
+"s": "Utilities"
+},
+{
+"t": "SO",
+"n": "The Southern Co.",
+"s": "Utilities"
+},
+{
+"t": "SRE",
+"n": "Sempra",
+"s": "Utilities"
+},
+{
+"t": "VST",
+"n": "Vistra Corp.",
+"s": "Utilities"
+},
+{
+"t": "WEC",
+"n": "WEC Energy Group Inc.",
+"s": "Utilities"
+},
+{
+"t": "XEL",
+"n": "Xcel Energy Inc.",
+"s": "Utilities"
+},
+{
+"t": "AMH",
+"n": "American Homes 4 Rent",
+"s": "Real Estate"
+},
+{
+"t": "ARE",
+"n": "Alexandria Real Estate Equities Inc.",
+"s": "Real Estate"
+},
+{
+"t": "AVB",
+"n": "AvalonBay Communities Inc.",
+"s": "Real Estate"
+},
+{
+"t": "BXP",
+"n": "BXP Inc.",
+"s": "Real Estate"
+},
+{
+"t": "CCI",
+"n": "Crown Castle Inc.",
+"s": "Real Estate"
+},
+{
+"t": "CPT",
+"n": "Camden Property Trust",
+"s": "Real Estate"
+},
+{
+"t": "DLR",
+"n": "Digital Realty Trust Inc.",
+"s": "Real Estate"
+},
+{
+"t": "EQIX",
+"n": "Equinix Inc.",
+"s": "Real Estate"
+},
+{
+"t": "EQR",
+"n": "Equity Residential",
+"s": "Real Estate"
+},
+{
+"t": "ESS",
+"n": "Essex Property Trust Inc.",
+"s": "Real Estate"
+},
+{
+"t": "EXR",
+"n": "Extra Space Storage Inc.",
+"s": "Real Estate"
+},
+{
+"t": "FRT",
+"n": "Federal Realty Investment Trust",
+"s": "Real Estate"
+},
+{
+"t": "HST",
+"n": "Host Hotels & Resorts Inc.",
+"s": "Real Estate"
+},
+{
+"t": "INVH",
+"n": "Invitation Homes Inc.",
+"s": "Real Estate"
+},
+{
+"t": "IRM",
+"n": "Iron Mountain Inc.",
+"s": "Real Estate"
+},
+{
+"t": "KIM",
+"n": "Kimco Realty Corp.",
+"s": "Real Estate"
+},
+{
+"t": "MAA",
+"n": "Mid-America Apartment Communities Inc.",
+"s": "Real Estate"
+},
+{
+"t": "NNN",
+"n": "NNN REIT Inc.",
+"s": "Real Estate"
+},
+{
+"t": "O",
+"n": "Realty Income Corp.",
+"s": "Real Estate"
+},
+{
+"t": "PLD",
+"n": "Prologis Inc.",
+"s": "Real Estate"
+},
+{
+"t": "PSA",
+"n": "Public Storage",
+"s": "Real Estate"
+},
+{
+"t": "REG",
+"n": "Regency Centers Corp.",
+"s": "Real Estate"
+},
+{
+"t": "SBAC",
+"n": "SBA Communications Corp.",
+"s": "Real Estate"
+},
+{
+"t": "SPG",
+"n": "Simon Property Group Inc.",
+"s": "Real Estate"
+},
+{
+"t": "STAG",
+"n": "STAG Industrial Inc.",
+"s": "Real Estate"
+},
+{
+"t": "UDR",
+"n": "UDR Inc.",
+"s": "Real Estate"
+},
+{
+"t": "VICI",
+"n": "VICI Properties Inc.",
+"s": "Real Estate"
+},
+{
+"t": "WY",
+"n": "Weyerhaeuser Co.",
+"s": "Real Estate"
+},
+{
+"t": "ALB",
+"n": "Albemarle Corp.",
+"s": "Materials"
+},
+{
+"t": "AMCR",
+"n": "Amcor plc",
+"s": "Materials"
+},
+{
+"t": "APD",
+"n": "Air Products & Chemicals Inc.",
+"s": "Materials"
+},
+{
+"t": "BALL",
+"n": "Ball Corp.",
+"s": "Materials"
+},
+{
+"t": "CCK",
+"n": "Crown Holdings Inc.",
+"s": "Materials"
+},
+{
+"t": "CE",
+"n": "Celanese Corp.",
+"s": "Materials"
+},
+{
+"t": "CF",
+"n": "CF Industries Holdings Inc.",
+"s": "Materials"
+},
+{
+"t": "CTVA",
+"n": "Corteva Inc.",
+"s": "Materials"
+},
+{
+"t": "DD",
+"n": "DuPont de Nemours Inc.",
+"s": "Materials"
+},
+{
+"t": "DOW",
+"n": "Dow Inc.",
+"s": "Materials"
+},
+{
+"t": "ECL",
+"n": "Ecolab Inc.",
+"s": "Materials"
+},
+{
+"t": "EXP",
+"n": "Eagle Materials Inc.",
+"s": "Materials"
+},
+{
+"t": "FCX",
+"n": "Freeport-McMoRan Inc.",
+"s": "Materials"
+},
+{
+"t": "FMC",
+"n": "FMC Corp.",
+"s": "Materials"
+},
+{
+"t": "GPK",
+"n": "Graphic Packaging Holding Co.",
+"s": "Materials"
+},
+{
+"t": "IFF",
+"n": "International Flavors & Fragrances Inc.",
+"s": "Materials"
+},
+{
+"t": "IP",
+"n": "International Paper Co.",
+"s": "Materials"
+},
+{
+"t": "LIN",
+"n": "Linde plc",
+"s": "Materials"
+},
+{
+"t": "LYB",
+"n": "LyondellBasell Industries NV",
+"s": "Materials"
+},
+{
+"t": "MLM",
+"n": "Martin Marietta Materials Inc.",
+"s": "Materials"
+},
+{
+"t": "MOS",
+"n": "The Mosaic Co.",
+"s": "Materials"
+},
+{
+"t": "NEM",
+"n": "Newmont Corp.",
+"s": "Materials"
+},
+{
+"t": "NUE",
+"n": "Nucor Corp.",
+"s": "Materials"
+},
+{
+"t": "PKG",
+"n": "Packaging Corp. of America",
+"s": "Materials"
+},
+{
+"t": "PPG",
+"n": "PPG Industries Inc.",
+"s": "Materials"
+},
+{
+"t": "SHW",
+"n": "The Sherwin-Williams Co.",
+"s": "Materials"
+},
+{
+"t": "SMG",
+"n": "The Scotts Miracle-Gro Co.",
+"s": "Materials"
+},
+{
+"t": "STLD",
+"n": "Steel Dynamics Inc.",
+"s": "Materials"
+},
+{
+"t": "VMC",
+"n": "Vulcan Materials Co.",
+"s": "Materials"
+}
+]
+}
