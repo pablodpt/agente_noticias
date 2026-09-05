@@ -9,6 +9,49 @@ Dos herramientas en el mismo repo, independientes entre sí:
 
 ---
 
+# 0. 🔑 Claves: en GitHub Actions y en tu máquina
+
+Las dos herramientas necesitan las mismas tres claves:
+
+| Clave | Para qué | Dónde conseguirla |
+|---|---|---|
+| `TELEGRAM_TOKEN` | Enviarte mensajes | [@BotFather](https://t.me/BotFather) → `/newbot` |
+| `TELEGRAM_CHAT_ID` | Saber a quién escribirte | [@userinfobot](https://t.me/userinfobot) (y **escribe algo a tu bot** una vez) |
+| `SEC_USER_AGENT` | La SEC exige identificar al cliente | Tu nombre y correo: `pablo pablo@dominio.com` |
+
+## En GitHub Actions (sin servidor)
+
+Las guardas como **secrets**: *Settings → Secrets and variables → Actions → New
+repository secret*. Los workflows ya las usan desde ahí.
+
+## En tu máquina (archivo `.env`)
+
+Los secrets de GitHub **no se pueden leer desde la API** (solo escribir), así que
+tienes dos formas de tener el `.env` en local:
+
+**A. Recuperarlas desde GitHub (lo más rápido si ya las guardaste allí)**
+
+1. En el repo → **Actions → Generar .env para uso local → Run workflow**.
+2. Descarga el artefacto **`env-local`** que genera (te aparece en la propia ejecución).
+3. Descomprímelo y deja el `.env` en la carpeta del proyecto.
+4. **Borra el artefacto** en cuanto lo tengas: contiene las credenciales en texto plano.
+   Caduca solo en 1 día, pero mejor no dejarlo.
+
+**B. Escribirlas a mano con el asistente**
+
+```bash
+python configurar.py            # te las pide, valida el formato y escribe .env
+python configurar.py --probar   # manda un mensaje de prueba a Telegram
+python configurar.py --mostrar  # enseña qué hay cargado (oculta el token)
+```
+
+El asistente guarda el `.env` con **permisos 600** (solo tú) y reutiliza los valores
+que ya tuvieras. El archivo está en `.gitignore`, así que nunca se sube al repo.
+
+> También puedes copiar `.env.example` a `.env` y rellenarlo a mano con tu editor.
+
+---
+
 # 1. 🔎 Detector de oportunidades
 
 Escanea un universo (por defecto el **S&P 500**), puntúa cada valor de 0 a 100 y
@@ -39,6 +82,7 @@ media de 200 sesiones, el momentum pesa menos y la sobreventa/valor pesan más.
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+python configurar.py                 # crea el .env con tus claves (ver sección 0)
 
 python oportunidades.py selftest          # ✅ comprueba la lógica SIN red (datos sintéticos)
 python oportunidades.py preview           # escanea e imprime por consola (no envía nada)
@@ -179,7 +223,8 @@ ETFs, cripto.
 3. Envía un mensaje cualquiera al bot (si no, no puede escribirte).
 
 ```bash
-cp .env.example .env      # y rellena TELEGRAM_TOKEN y TELEGRAM_CHAT_ID
+python configurar.py      # asistente: crea .env con permisos 600
+# o a mano:  cp .env.example .env  y rellena TELEGRAM_TOKEN y TELEGRAM_CHAT_ID
 ```
 
 ## 2.3 Uso
@@ -216,6 +261,7 @@ sec.py                   SEC EDGAR: 10-K, 10-Q, 8-K, 13D/G, Form 4...
 sentimiento.py           Análisis alcista/bajista (léxico rápido o FinBERT)
 
 config.py                Toda la configuración y los umbrales
+configurar.py            Asistente para crear y comprobar el .env en local
 estado.py                Deduplicación para no repetir avisos (estado.json)
 telegram_bot.py          Envío a Telegram con troceado y reintentos
 datos/sp500.json         Lista del S&P 500 empaquetada (funciona sin red)
