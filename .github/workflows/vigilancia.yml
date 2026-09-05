@@ -1,0 +1,44 @@
+name: Vigilancia de eventos urgentes
+
+on:
+  # Cada 30 min durante el horario del mercado americano (13:00-21:00 UTC aprox.)
+  schedule:
+    - cron: '*/30 12-21 * * 1-5'
+  workflow_dispatch:
+
+concurrency:
+  group: vigilancia
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # necesario para persistir estado.json en la caché/artefacto
+
+jobs:
+  vigilar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Restaurar estado (anti-duplicados)
+        uses: actions/cache@v4
+        with:
+          path: estado.json
+          key: estado-${{ github.run_id }}
+          restore-keys: |
+            estado-
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Buscar eventos urgentes
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          TZ_USUARIO: Europe/Madrid
+        run: python agente.py vigilar
