@@ -6,6 +6,8 @@ Modos de uso:
   python agente.py daemon     -> Bucle continuo: vigila + envía el boletín a su hora.
   python agente.py test       -> Prueba la conexión con Telegram.
   python agente.py preview    -> Imprime el boletín por consola (no envía nada).
+  python agente.py ucits      -> Imprime la cartera modelo UCITS por categorías.
+  python agente.py ucits-excel --salida informe.xlsx -> Exporta tablas para Excel.
 """
 import argparse
 import html
@@ -256,11 +258,23 @@ def daemon():
 def main():
     ap = argparse.ArgumentParser(description="Agente de Portafolio → Telegram")
     ap.add_argument("modo", nargs="?", default="boletin",
-                    choices=["boletin", "vigilar", "daemon", "test", "preview"])
+                    choices=["boletin", "vigilar", "daemon", "test", "preview",
+                             "ucits", "ucits-excel"])
+    ap.add_argument("--salida", default="informe_ucits.xlsx",
+                    help="Ruta del archivo para el modo ucits-excel")
     args = ap.parse_args()
 
     if args.modo == "preview":
         print(construir_boletin())
+        return
+    if args.modo == "ucits":
+        from ucits import construir_informe_markdown
+        print(construir_informe_markdown())
+        return
+    if args.modo == "ucits-excel":
+        from ucits import exportar_excel
+        ruta = exportar_excel(args.salida)
+        print(f"Informe UCITS exportado: {ruta}")
         return
 
     if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:

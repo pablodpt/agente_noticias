@@ -55,7 +55,52 @@ python agente.py daemon     # bucle continuo (boletín a su hora + vigilancia)
 
 ---
 
-## 4. Ejecución automática
+## 4. Cartera modelo UCITS no ETF para España
+
+El repositorio incluye también un generador independiente de cartera estratégica
+por **categorías** de fondos UCITS no cotizados. No usa tickers, ISIN ni nombres
+comerciales y no necesita credenciales de Telegram.
+
+```bash
+# Informe completo en Markdown (no requiere dependencias externas)
+python ucits.py markdown
+
+# Tres CSV para Excel (no requiere dependencias externas)
+python ucits.py csv --salida tablas_ucits
+
+# Libro Excel con contexto macro, cartera, tipos de fondo y checklist anual
+pip install -r requirements.txt
+python ucits.py excel --salida informe_ucits.xlsx
+
+# Los dos formatos principales también están integrados en el orquestador
+python agente.py ucits
+python agente.py ucits-excel --salida informe_ucits.xlsx
+```
+
+La asignación modelo suma 100% (Core 68%, Satélite 24%, Temático 8%), tiene
+horizonte de planificación de tres años y revisión anual. El libro contiene:
+
+- escenario macro por variables e implicaciones;
+- cartera por bloques y categorías;
+- selección activo/indexado, perfil, horizonte y riesgos;
+- checklist con indicadores, alertas y acciones de revisión;
+- notas de alcance y cautelas sobre el régimen español de traspasos.
+
+También se pueden generar tres CSV UTF-8 con separador `;` desde Python:
+
+```python
+from ucits import exportar_csvs
+exportar_csvs("tablas_ucits")
+```
+
+> **Cautela fiscal:** que un fondo sea UCITS no garantiza por sí solo que un
+> traspaso tenga diferimiento fiscal en España. Deben verificarse el vehículo,
+> su registro/comercialización y las circunstancias del titular. Los ETF están
+> excluidos del diseño.
+
+---
+
+## 5. Ejecución automática
 
 ### Opción A — GitHub Actions (gratis, sin servidor)
 
@@ -114,7 +159,7 @@ O con **cron**, si prefieres pasadas puntuales:
 
 ---
 
-## 5. Ajustes de sensibilidad
+## 6. Ajustes de sensibilidad
 
 Todo se controla por variables de entorno en `.env` (o desde `config.py`):
 
@@ -134,7 +179,7 @@ Para activar FinBERT descomenta `transformers` y `torch` en `requirements.txt`.
 
 ---
 
-## 6. Cómo está organizado
+## 7. Cómo está organizado
 
 ```
 agente.py         Orquestador y CLI (boletin / vigilar / daemon / test / preview)
@@ -145,6 +190,7 @@ sec.py            SEC EDGAR: 10-K, 10-Q, 8-K, 13D/G, Form 4...
 sentimiento.py    Análisis alcista/bajista (léxico rápido o FinBERT)
 estado.py         Deduplicación: evita repetirte la misma alerta
 telegram_bot.py   Envío con troceado seguro y reintentos
+ucits.py           Cartera modelo por categorías y exportación Markdown/CSV/Excel
 ```
 
 `estado.json` guarda lo ya notificado durante 36 h para que no te llegue dos veces
