@@ -23,6 +23,17 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      # La base local (correlaciones) no existe en el runner; la restauramos
+      # de la última ejecución para que la persistencia sea incremental.
+      # Si no hay caché, el agente la rellena él con AÑOS_BOOTSTRAP de histórico.
+      - name: Restaurar base de datos local
+        uses: actions/cache@v4
+        with:
+          path: datos/portafolio.db
+          key: datos-db-${{ github.run_id }}
+          restore-keys: |
+            datos-db-
+
       - name: ¿Son las 18:00 en Madrid?
         id: hora
         run: |

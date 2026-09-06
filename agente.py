@@ -6,10 +6,20 @@ Modos de uso:
   python agente.py daemon     -> Bucle continuo: vigila + envía el boletín a su hora.
   python agente.py test       -> Prueba la conexión con Telegram.
   python agente.py preview    -> Imprime el boletín por consola (no envía nada).
+
+  Base de datos local (SQLite) con análisis de correlaciones:
+  python agente.py datos                -> Persiste precios/noticias/filings ahora.
+  python agente.py datos --bootstrap    -> Rellena la base con años de histórico.
+  python agente.py datos --resumen      -> Estado de la base.
+  python agente.py datos --importar-raw DIR  -> Importa datos descargados a mano.
+  python agente.py analisis             -> Informe completo de correlaciones (consola).
+  python agente.py analisis --markdown  -> Y además guarda un .md en informes/.
+  python agente.py analisis --enviar    -> Y además envía el informe por Telegram.
 """
 import argparse
 import html
 import logging
+import os
 import sys
 import time
 from datetime import datetime, timezone
@@ -46,8 +56,18 @@ def _flecha(pct: float) -> str:
 
 # ------------------------------------------------------------------ BOLETÍN --
 
+def _persistir_fondo():
+    """Nutre la base local para las correlaciones; nunca rompe el boletín."""
+    try:
+        import datos
+        log.info("Base local: %s", datos.persistir_hoy())
+    except Exception as e:
+        log.warning("No se pudo persistir en la base local: %s", e)
+
+
 def construir_boletin() -> str:
     log.info("Recopilando datos del portafolio (%s tickers)...", len(TICKERS))
+    _persistir_fondo()
 
     snaps = {}
     for t in TICKERS:
@@ -134,7 +154,20 @@ def construir_boletin() -> str:
             p.append(f"• <a href='{n['link']}'>{_esc(n['titulo'][:140])}</a>")
         p.append("")
 
-    p.append(f"<i>{LINEA}\nNo es asesoramiento financiero. Datos: Yahoo Finance, SEC EDGAR, RSS.</i>")
+    # --- Patrones y correlaciones (base de datos local) ---
+    try:
+        from correlaciones import _resumen_secciones, cargar_contexto
+        ctx = cargar_contexto()
+        if not ctx.minimo:
+            secs = _resumen_secciones(ctx)
+            if secs:
+                p.append(f"<b>{_esc(secs[0][0])}</b>")
+                p.extend(_esc(l) for l in secs[0][1] if l.strip())
+                p.append("")
+    except Exception as e:
+        log.debug("Sección de correlaciones omitida: %s", e)
+
+    p.append(f"<i>{LINEA}\nNo es asesoramiento financiero. Datos: Yahoo Finance, SEC EDGAR, RSS, base local.</i>")
     return "\n".join(p)
 
 
@@ -214,6 +247,7 @@ def detectar_urgentes(estado: Estado) -> list[str]:
 
 
 def vigilar_una_vez() -> int:
+    _persistir_fondo()
     estado = Estado()
     alertas = detectar_urgentes(estado)
     for a in alertas:
@@ -231,6 +265,7 @@ def daemon():
     estado = Estado()
     while True:
         try:
+            _persistir_fondo()
             ahora = datetime.now(TZ)
             hoy = ahora.date().isoformat()
 
@@ -251,15 +286,127 @@ def daemon():
         time.sleep(INTERVALO_VIGILANCIA_SEG)
 
 
+# ----------------------------------------------------------- DATOS / ANÁLISIS --
+
+def modo_datos(args) -> int:
+    import datos
+
+    if args.demo:
+        out = datos.generar_demo()
+        print("\n✅ Base de datos DEMO generada (SINTÉTICA, para validar el análisis):")
+        for k, v in out.items():
+            print(f"  {k:<10} {v} filas")
+        print("\n⚠️  Los datos son de prueba con estructura de correlación conocida.")
+        print("   Para reemplazarlos por datos reales:  python agente.py datos --bootstrap")
+        print("   Ver el análisis:                      python agente.py analisis")
+        return 0
+
+    if args.resumen:
+        r = datos.resumen()
+        print("\n📊 ESTADO DE LA BASE DE DATOS LOCAL")
+        print(f"Ruta: {datos.ARCHIVO_DATOS}\n")
+        p = r.get("precios", {})
+        print(f"  {'precios':<10} {p.get('filas', 0):>4} series  "
+              f"{p.get('días', 0):>7} sesiones   "
+              f"{p.get('desde') or '—'} → {p.get('hasta') or '—'}")
+        for tabla in ("noticias", "filings", "earnings"):
+            d = r.get(tabla, {})
+            print(f"  {tabla:<10} {d.get('filas', 0):>11} filas   "
+                  f"{(d.get('desde') or '—')[:10]} → {(d.get('hasta') or '—')[:10]}")
+        if r.get("ultimo_persist"):
+            print(f"\n  Última persistencia: {r['ultimo_persist']}")
+        return 0
+
+    if args.importar_raw:
+        if not os.path.isdir(args.importar_raw):
+            log.error("%s no es un directorio", args.importar_raw)
+            return 1
+        c = datos.conn()
+        out = datos.importar_raw(c, args.importar_raw)
+        c.close()
+        print(f"\n📥 Importados {len(out)} ficheros de {args.importar_raw}:")
+        for k, v in out.items():
+            print(f"  {k}: {v} filas")
+        return 0
+
+    if args.bootstrap:
+        print("⏳ Rellenando la base con años de histórico (precios, noticias,")
+        print("   filings SEC y earnings). Puede tardar varios minutos...\n")
+        out = datos.bootstrap()
+        print("\n✅ Bootstrap completado:")
+        for k, v in out.items():
+            print(f"  {k:<10} {v} filas")
+        print("\nAhora puedes ver el análisis:  python agente.py analisis")
+        return 0
+
+    msg = datos.persistir_hoy(force=args.fuerza)
+    print(f"💾 {msg}")
+    return 0
+
+
+def modo_analisis(args) -> int:
+    from correlaciones import (cargar_contexto, informe_completo,
+                               informe_completo_telegram, validar)
+
+    ctx = cargar_contexto()
+    if ctx.n_dias == 0:
+        log.error("La base está vacía. Primero ejecuta:  python agente.py datos --bootstrap")
+        return 1
+    if ctx.n_dias < 40:
+        log.warning("Solo hay %s días de precios; algunas secciones estarán limitadas.", ctx.n_dias)
+
+    if args.validar:
+        print(validar(ctx))
+        return 0
+
+    if args.markdown:
+        os.makedirs("informes", exist_ok=True)
+        ruta = os.path.join("informes", f"correlaciones_{datetime.now():%Y%m%d_%H%M}.md")
+        with open(ruta, "w", encoding="utf-8") as f:
+            f.write(informe_completo(ctx))
+        print(f"📝 Informe guardado en {ruta}\n")
+
+    if args.enviar:
+        if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+            log.error("Para --enviar necesitas TELEGRAM_TOKEN y TELEGRAM_CHAT_ID en .env")
+            return 1
+        ok = enviar_telegram(TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, informe_completo_telegram(ctx))
+        log.info("Informe de correlaciones %s", "enviado ✅" if ok else "FALLÓ ❌")
+
+    print(informe_completo(ctx))
+    return 0
+
+
 # --------------------------------------------------------------------- CLI --
 
 def main():
     ap = argparse.ArgumentParser(description="Agente de Portafolio → Telegram")
     ap.add_argument("modo", nargs="?", default="boletin",
-                    choices=["boletin", "vigilar", "daemon", "test", "preview"])
+                    choices=["boletin", "vigilar", "daemon", "test", "preview",
+                             "datos", "analisis"])
+    ap.add_argument("--bootstrap", action="store_true",
+                    help="datos: rellena la base con años de histórico (real)")
+    ap.add_argument("--demo", action="store_true",
+                    help="datos: rellena la base con un dataset sintético de prueba")
+    ap.add_argument("--resumen", action="store_true",
+                    help="datos: muestra el estado de la base")
+    ap.add_argument("--importar-raw", metavar="DIR",
+                    help="datos: importa ficheros descargados a mano (JSON/RSS)")
+    ap.add_argument("--fuerza", action="store_true",
+                    help="datos: fuerza la persistencia aunque sea reciente")
+    ap.add_argument("--enviar", action="store_true",
+                    help="analisis: envía el informe por Telegram")
+    ap.add_argument("--markdown", action="store_true",
+                    help="analisis: guarda el informe en informes/*.md")
+    ap.add_argument("--validar", action="store_true",
+                    help="analisis: valida contra la estructura conocida del demo")
     args = ap.parse_args()
 
-    if args.modo == "preview":
+    if args.modo == "datos":
+        sys.exit(modo_datos(args))
+    elif args.modo == "analisis":
+        sys.exit(modo_analisis(args))
+    elif args.modo == "preview":
         print(construir_boletin())
         return
 

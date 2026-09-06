@@ -53,6 +53,63 @@ python agente.py vigilar    # una pasada de detección de eventos urgentes
 python agente.py daemon     # bucle continuo (boletín a su hora + vigilancia)
 ```
 
+## 3.5 Base de datos local y análisis de correlaciones
+
+El agente ahora **acumula todo lo que ve** en una base SQLite local (`datos/portafolio.db`,
+gitignoreada): precios diarios OHLCV de los 7 tickers + los 4 índices, noticias con
+sentimiento, presentaciones SEC y fechas de earnings con sorpresa EPS. En cada
+ejecución (boletín, vigilancia, daemon) se persisten los datos nuevos, de forma
+incremental y limitada en el tiempo (`PERSISTIR_CADA_HORAS`, por defecto 4 h).
+
+Sobre esa base, `correlaciones.py` extrae **patrones de todo tipo**:
+
+| Sección | Qué mide |
+|---|---|
+| 🔗 Correlaciones diarias | Matriz de retornos a 1M / 3M / 6M / 12M + pares extremo (concentración vs. diversificador) |
+| 📐 Beta y riesgo | Beta frente al S&P 500, volatilidad total e idiosincrática |
+| 🌡️ Régimen actual | ¿Los activos se acoplan más o menos al mercado que antes? (corr. 1M vs 12M) + vol. del portafolio |
+| 😱 Miedo y tipos | Correlación con VIX (y caída media en días de susto) y con el bono a 10 años |
+| 📰 Noticias → precio | ¿El sentimiento de los titulares anticipa el retorno del día siguiente? (correlación + mediana tras días bajistas/alcistas) |
+| 🏛️ Efecto SEC | Retorno acumulado a 5 sesiones tras 8-K, 10-Q, 10-K, 13D/G, Form 4... |
+| 🎯 Efecto earnings | Retorno a 5 sesiones según sorpresa de resultados (beat / inline / miss) |
+| 🔊 Volumen anómalo | ¿Los días de volumen ≥ 2,5× la media se continúan o revierten? |
+| 🌀 Momentum | Autocorrelación de retornos a 1/5/20 días: tendencia vs. reversión a la media |
+| 🎯 Quién lidera | Cross-correlación con retardos (−3..+3 días) frente al mercado |
+| 🧩 Diversificación real | Vol. del portafolio ponderado, nº efectivo de apuestas, concentración, mejor diversificador, escenario «S&P −5%» |
+| 💡 Insights | 5-10 conclusiones automáticas que combinan todo lo anterior |
+
+### Uso
+
+```bash
+# Primer uso: rellena la base con 5 años de histórico (precios, noticias,
+# filings SEC completos y earnings). Puede tardar unos minutos.
+python agente.py datos --bootstrap
+
+# Persistir ahora (respetando el throttle de PERSISTIR_CADA_HORAS)
+python agente.py datos                # añade --fuerza para saltarlo
+python agente.py datos --resumen      # estado de la base
+
+# Ver el análisis
+python agente.py analisis             # informe completo por consola
+python agente.py analisis --markdown  # ... y lo guarda en informes/*.md
+python agente.py analisis --enviar    # ... y lo envía por Telegram
+python agente.py analisis --validar   # (con datos demo) valida el motor
+
+# Dataset sintético de prueba (para probar sin histórico ni Telegram)
+python agente.py datos --demo
+```
+
+El boletín diario incluye una sección compacta **«🔗 PATRONES Y CORRELACIONES»**
+con lo más relevante del día. Con más datos acumulados, las estimaciones se
+afinan solas: el event study de SEC gana fuerza con cada nuevo filing, y la
+correlación noticias→precio con cada boletín.
+
+> **En GitHub Actions** el runner es efímero: los workflows ya restauran la base
+> de la caché de la última ejecución (igual que `estado.json`). Si no hay caché
+> (primer run), el agente se autoabastece con `AÑOS_BOOTSTRAP` años de histórico
+> antes de generar el boletín. **En tu propio servidor** (modo daemon), la base
+> crece incrementalmente en el disco, día a día.
+
 ---
 
 ## 4. Ejecución automática
@@ -137,18 +194,21 @@ Para activar FinBERT descomenta `transformers` y `torch` en `requirements.txt`.
 ## 6. Cómo está organizado
 
 ```
-agente.py         Orquestador y CLI (boletin / vigilar / daemon / test / preview)
+agente.py         Orquestador y CLI (boletin / vigilar / daemon / test / preview / datos / analisis)
 config.py         Portafolio, umbrales y credenciales
 mercado.py        Precios, rupturas, volumen, medias móviles, calendario de earnings
 noticias.py       RSS por ticker (Yahoo + Google News) y macro
 sec.py            SEC EDGAR: 10-K, 10-Q, 8-K, 13D/G, Form 4...
 sentimiento.py    Análisis alcista/bajista (léxico rápido o FinBERT)
+datos.py          Base SQLite local: persistencia incremental, bootstrap, dataset demo
+correlaciones.py  Análisis de correlaciones y patrones sobre la base local
 estado.py         Deduplicación: evita repetirte la misma alerta
 telegram_bot.py   Envío con troceado seguro y reintentos
 ```
 
 `estado.json` guarda lo ya notificado durante 36 h para que no te llegue dos veces
-la misma alerta. Está en `.gitignore`.
+la misma alerta. `datos/portafolio.db` es la base de datos local (precios, noticias,
+filings, earnings). Ambos están en `.gitignore`.
 
 ---
 

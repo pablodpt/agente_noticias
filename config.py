@@ -103,3 +103,16 @@ SENTIMIENTO_MINIMO = float(os.getenv("SENTIMIENTO_MINIMO", "0.75"))
 ARCHIVO_ESTADO = os.getenv("ARCHIVO_ESTADO", "estado.json")
 # Horas que un evento ya notificado permanece silenciado.
 TTL_DEDUP_HORAS = int(os.getenv("TTL_DEDUP_HORAS", "36"))
+
+# -------------------------------------------------------------- Base de datos --
+# SQLite local donde se acumulan precios, noticias, filings y earnings.
+# Es la materia prima del análisis de correlaciones (python agente.py analisis).
+ARCHIVO_DATOS = os.getenv("ARCHIVO_DATOS", os.path.join("datos", "portafolio.db"))
+# Años de histórico que rellena `python agente.py datos --bootstrap`.
+AÑOS_BOOTSTRAP = int(os.getenv("AÑOS_BOOTSTRAP", "5"))
+# Máximo de horas entre persistencias automáticas (0 = siempre).
+PERSISTIR_CADA_HORAS = int(os.getenv("PERSISTIR_CADA_HORAS", "4"))
+# Correlación por encima de la cual se alerta de "concentración".
+UMBRAL_CORR_ALTA = float(os.getenv("UMBRAL_CORR_ALTA", "0.70"))
+# Correlación por debajo de la cual se señala "apuesta independiente".
+UMBRAL_CORR_BAJA = float(os.getenv("UMBRAL_CORR_BAJA", "-0.20"))
