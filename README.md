@@ -189,7 +189,8 @@ noticias.py       RSS por ticker (Yahoo + Google News) y macro
 sec.py            SEC EDGAR: 10-K, 10-Q, 8-K, 13D/G, Form 4...
 sentimiento.py    Análisis alcista/bajista (léxico rápido o FinBERT)
 estado.py         Deduplicación: evita repetirte la misma alerta
-telegram_bot.py   Envío con troceado seguro y reintentos
+bot.py            Envío a Telegram con troceado seguro y reintentos
+telegram_bot.py   Nombre anterior, conservado por compatibilidad
 ucits.py           Cartera modelo por categorías y exportación Markdown/CSV/Excel
 ```
 

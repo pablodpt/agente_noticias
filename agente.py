@@ -25,7 +25,7 @@ from mercado import calendario_earnings, detectar_eventos_precio, snapshot
 from noticias import noticias_macro, noticias_portafolio
 from sec import presentaciones_portafolio
 from sentimiento import ETIQUETAS_ES
-from telegram_bot import enviar_telegram, probar_conexion
+from bot import enviar_telegram, probar_conexion
 
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s | %(levelname)s | %(message)s")
