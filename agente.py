@@ -32,6 +32,7 @@ logging.basicConfig(level=logging.INFO,
 log = logging.getLogger("agente")
 
 LINEA = "─" * 24
+MODOS = ("boletin", "vigilar", "daemon", "test", "preview", "ucits", "ucits-excel")
 
 
 def _esc(t: str) -> str:
@@ -257,11 +258,12 @@ def daemon():
 
 def main():
     ap = argparse.ArgumentParser(description="Agente de Portafolio → Telegram")
-    ap.add_argument("modo", nargs="?", default="boletin",
-                    choices=["boletin", "vigilar", "daemon", "test", "preview",
-                             "ucits", "ucits-excel"])
-    ap.add_argument("--salida", default="informe_ucits.xlsx",
-                    help="Ruta del archivo para el modo ucits-excel")
+    ap.add_argument("modo", nargs="?", default="boletin", choices=MODOS)
+    ap.add_argument(
+        "--salida",
+        default="informe_ucits.xlsx",
+        help="Ruta del archivo para el modo ucits-excel",
+    )
     args = ap.parse_args()
 
     if args.modo == "preview":
