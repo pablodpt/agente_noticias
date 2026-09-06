@@ -99,10 +99,23 @@ def _f(v):
         return None
 
 
+def normalizar_precios(df: pd.DataFrame) -> pd.DataFrame:
+    """Pasa columnas de yfinance (Open/High/...) al formato de la base (minúsculas)."""
+    if df is None or df.empty:
+        return df
+    df = df.rename(columns={
+        "Open": "open", "High": "high", "Low": "low", "Close": "close",
+        "Adj Close": "adj_close", "Volume": "volume"})
+    if "adj_close" not in df.columns and "close" in df.columns:
+        df["adj_close"] = df["close"]
+    return df
+
+
 def guardar_precios(c, ticker: str, df: pd.DataFrame) -> int:
     """Upsert de un DataFrame OHLCV (índice = fecha, columnas open/high/low/close/volume)."""
     if df is None or df.empty:
         return 0
+    df = normalizar_precios(df)
     filas = []
     for d, r in df.iterrows():
         fecha = d.date() if hasattr(d, "date") else pd.Timestamp(d).date()
@@ -457,7 +470,6 @@ def persistir_hoy(force: bool = False) -> str:
             try:
                 df = mercado._historico(t, periodo=_periodo_para(t, c))
                 if not df.empty:
-                    df["adj_close"] = df.get("Adj Close", df["Close"])
                     n_precios += guardar_precios(c, t, df)
             except Exception as e:
                 log.warning("persistir precios %s: %s", t, e)
@@ -718,7 +730,6 @@ def bootstrap(con_noticias: bool = True, con_sec: bool = True,
             if df.empty:
                 log.warning("sin datos para %s", t)
                 continue
-            df["adj_close"] = df.get("Adj Close", df["Close"])
             out["precios"] += guardar_precios(c, t, df)
 
         if con_noticias:
