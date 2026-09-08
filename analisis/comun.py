@@ -23,6 +23,36 @@ RAIZ_ANALISIS = Path(__file__).resolve().parent
 RAIZ_REPO = RAIZ_ANALISIS.parent
 DIR_SALIDA = RAIZ_ANALISIS / "salida"
 
+# Si existe un .env en la raíz del repo (el mismo que usa el agente de Telegram),
+# se carga para poder definir ahí SP500_DB. Es opcional: si falta dotenv, se ignora.
+try:
+    from dotenv import load_dotenv as _load_dotenv
+    _load_dotenv(RAIZ_REPO / ".env")
+except Exception:
+    pass
+
+# Dónde buscar la base si no se indica --db ni SP500_DB, en este orden.
+# El primero es tu ruta real: C:\Users\pablo\Documents\sp500_db\db\sp500.duckdb
+# (Path.home() en Windows es C:\Users\<usuario>, así que también vale en otro PC).
+CANDIDATOS_DB = [
+    Path.home() / "Documents" / "sp500_db" / "db" / "sp500.duckdb",
+    Path.home() / "sp500_db" / "db" / "sp500.duckdb",
+    RAIZ_REPO / "datos" / "sp500.duckdb",
+]
+
+
+def localizar_db(explicita: str | None) -> str | None:
+    """Ruta a la base: --db > variable SP500_DB > primera candidata que exista."""
+    if explicita:
+        return explicita
+    env = os.getenv("SP500_DB")
+    if env:
+        return env
+    for c in CANDIDATOS_DB:
+        if c.exists():
+            return str(c)
+    return None
+
 
 # ------------------------------------------------------------------ consola --
 
@@ -53,8 +83,9 @@ def parser_base(descripcion: str, nombre_salida: str) -> argparse.ArgumentParser
     ap = argparse.ArgumentParser(
         description=descripcion,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    ap.add_argument("--db", default=os.getenv("SP500_DB"),
-                    help="Ruta al fichero .duckdb (o variable de entorno SP500_DB)")
+    ap.add_argument("--db", default=None,
+                    help="Ruta al fichero .duckdb. Si se omite: variable SP500_DB o, en su defecto, "
+                         "~/Documents/sp500_db/db/sp500.duckdb")
     ap.add_argument("--salida", default=str(DIR_SALIDA / nombre_salida),
                     help="Carpeta donde se guardan CSV, gráficos e informe")
     ap.add_argument("--desde", default=None, help="Primera fecha a cargar (YYYY-MM-DD)")
@@ -79,15 +110,22 @@ def conectar(ruta: str | None):
         import duckdb
     except ImportError:
         sys.exit("Falta duckdb: pip install -r analisis/requirements.txt")
+    ruta = localizar_db(ruta)
     if not ruta:
-        sys.exit("Indica la base de datos con --db /ruta/sp500.duckdb (o exporta SP500_DB)")
+        buscadas = "\n  ".join(str(c) for c in CANDIDATOS_DB)
+        sys.exit("No encuentro la base de datos. Indícala con --db (p. ej. "
+                 r'--db "C:\Users\pablo\Documents\sp500_db\db\sp500.duckdb")'
+                 " o define SP500_DB en el entorno o en el .env.\n"
+                 f"Rutas probadas:\n  {buscadas}")
     if not os.path.exists(ruta):
         sys.exit(f"No existe el fichero {ruta}")
     try:
-        return duckdb.connect(ruta, read_only=True)
+        con = duckdb.connect(ruta, read_only=True)
     except Exception as e:  # p. ej. otro proceso la tiene abierta en escritura
         sys.exit(f"No se pudo abrir {ruta} en modo lectura: {e}\n"
                  "Si tu pipeline de actualización la tiene abierta, ciérralo o trabaja sobre una copia.")
+    print(f"Base de datos: {ruta}")
+    return con
 
 
 def cargar_tickers(con) -> pd.DataFrame:

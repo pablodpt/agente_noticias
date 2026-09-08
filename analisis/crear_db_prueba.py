@@ -6,13 +6,15 @@ un modelo de factores (mercado + sector + ruido idiosincrático) al que se le
 planta un poco de momentum y de efecto tamaño; los fundamentales son números
 plausibles pero inventados. Los resultados sobre esta base NO significan nada.
 
-    python analisis/crear_db_prueba.py --salida /tmp/sp500_prueba.duckdb --tickers 150
+    python analisis/crear_db_prueba.py --tickers 150
+    # -> crea analisis/salida/sp500_prueba.duckdb (o usa --salida para otra ruta)
 """
 from __future__ import annotations
 
 import argparse
 import os
 import string
+from pathlib import Path
 from datetime import date, datetime
 
 import numpy as np
@@ -217,7 +219,8 @@ def escribir(ruta: str, tablas: dict[str, pd.DataFrame]) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--salida", default="/tmp/sp500_prueba.duckdb")
+    ap.add_argument("--salida", default=str(Path(__file__).resolve().parent / "salida" / "sp500_prueba.duckdb"),
+                    help="Fichero .duckdb a crear (se sobrescribe si existe)")
     ap.add_argument("--tickers", type=int, default=150)
     ap.add_argument("--inicio", default="2015-09-07")
     ap.add_argument("--fin", default="2026-09-05")
@@ -225,6 +228,7 @@ def main() -> None:
     args = ap.parse_args()
 
     tablas = generar(args.tickers, args.inicio, args.fin, args.semilla)
+    Path(args.salida).parent.mkdir(parents=True, exist_ok=True)
     escribir(args.salida, tablas)
     print(f"Base sintética creada en {args.salida}")
     for k, v in tablas.items():

@@ -12,26 +12,36 @@ Solo leen la base (`read_only=True`); nunca escriben en ella.
 
 ## Instalación
 
-```bash
-pip install -r analisis/requirements.txt
-export SP500_DB=/ruta/a/tu/sp500.duckdb      # o pasa --db en cada comando
+Desde la raíz del repo, con el mismo venv del agente (o uno nuevo):
+
+```powershell
+pip install -r analisis\requirements.txt
 ```
+
+**Dónde está la base.** Los scripts la buscan en este orden:
+
+1. `--db "C:\ruta\sp500.duckdb"` en la línea de comandos.
+2. La variable `SP500_DB` (vale ponerla en el `.env` de la raíz del repo, junto al token de Telegram).
+3. `%USERPROFILE%\Documents\sp500_db\db\sp500.duckdb` — es decir,
+   `C:\Users\pablo\Documents\sp500_db\db\sp500.duckdb`. Si la base está ahí, **no hace falta indicar nada**.
 
 Si tu pipeline de actualización tiene la base abierta en escritura, DuckDB no dejará
 abrirla en lectura desde otro proceso: ciérralo o trabaja sobre una copia del fichero.
 
 ## Uso
 
-```bash
-python analisis/factores.py --db $SP500_DB
-python analisis/factores.py --db $SP500_DB --neutral-sector --coste-bps 15 --top 40
+```powershell
+python analisis\factores.py
+python analisis\factores.py --neutral-sector --coste-bps 15 --top 40
 
-python analisis/correlaciones.py --db $SP500_DB                     # usa PORTAFOLIO de config.py
-python analisis/correlaciones.py --db $SP500_DB --cartera "AAPL:20,MSFT:20,NVDA:15,AMZN:15,GOOGL:10" --hrp --pares
+python analisis\correlaciones.py                    # usa PORTAFOLIO de config.py como cartera
+python analisis\correlaciones.py --cartera "AAPL:20,MSFT:20,NVDA:15,AMZN:15,GOOGL:10" --hrp --pares
 
-python analisis/ml_ranking.py --db $SP500_DB
-python analisis/ml_ranking.py --db $SP500_DB --horizonte 3 --reentrenar 12 --sin-regimen
+python analisis\ml_ranking.py
+python analisis\ml_ranking.py --horizonte 3 --reentrenar 12 --sin-regimen
 ```
+
+(En Linux/macOS, lo mismo con `/` en lugar de `\`.)
 
 Cada script imprime el resumen por consola y deja en `analisis/salida/<nombre>/` un
 `informe.md` con tablas y gráficos PNG, más los CSV con todo el detalle. La carpeta
@@ -121,9 +131,9 @@ predecir el pasado sería mirar el futuro.
 `crear_db_prueba.py` genera una base sintética con el mismo esquema (modelo de
 factores con un poco de momentum plantado) para comprobar que todo corre:
 
-```bash
-python analisis/crear_db_prueba.py --salida /tmp/sp500_prueba.duckdb --tickers 150
-python analisis/factores.py --db /tmp/sp500_prueba.duckdb
+```powershell
+python analisis\crear_db_prueba.py --tickers 150          # crea analisis\salida\sp500_prueba.duckdb
+python analisis\factores.py --db analisis\salida\sp500_prueba.duckdb
 ```
 
 Los resultados sobre esa base no significan nada; solo validan el código.
