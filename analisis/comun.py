@@ -23,13 +23,29 @@ RAIZ_ANALISIS = Path(__file__).resolve().parent
 RAIZ_REPO = RAIZ_ANALISIS.parent
 DIR_SALIDA = RAIZ_ANALISIS / "salida"
 
-# Si existe un .env en la raíz del repo (el mismo que usa el agente de Telegram),
-# se carga para poder definir ahí SP500_DB. Es opcional: si falta dotenv, se ignora.
-try:
-    from dotenv import load_dotenv as _load_dotenv
-    _load_dotenv(RAIZ_REPO / ".env")
-except Exception:
-    pass
+def _leer_env(ruta: Path, clave: str) -> str | None:
+    """Lee una clave de un fichero .env sin depender de python-dotenv.
+
+    Soporta 'CLAVE=valor', 'CLAVE = valor', comillas y comentarios con '#'.
+    Devuelve None si el fichero no existe o la clave no está.
+    """
+    try:
+        for linea in ruta.read_text(encoding="utf-8").splitlines():
+            linea = linea.strip()
+            if not linea or linea.startswith("#") or "=" not in linea:
+                continue
+            k, v = linea.split("=", 1)
+            if k.strip() != clave:
+                continue
+            v = v.strip()
+            if v[:1] in ("'", '"') and v[-1:] == v[:1] and len(v) >= 2:
+                v = v[1:-1]                       # entre comillas: se respeta tal cual
+            elif " #" in v:
+                v = v.split(" #", 1)[0].rstrip()  # comentario al final de la línea
+            return v or None
+    except (OSError, UnicodeDecodeError):
+        pass
+    return None
 
 # Dónde buscar la base si no se indica --db ni SP500_DB, en este orden.
 # El primero es tu ruta real: C:\Users\pablo\Documents\sp500_db\db\sp500.duckdb
@@ -42,12 +58,12 @@ CANDIDATOS_DB = [
 
 
 def localizar_db(explicita: str | None) -> str | None:
-    """Ruta a la base: --db > variable SP500_DB > primera candidata que exista."""
+    """Ruta a la base: --db > variable SP500_DB > SP500_DB en el .env del repo > candidatas."""
     if explicita:
         return explicita
-    env = os.getenv("SP500_DB")
+    env = os.getenv("SP500_DB") or _leer_env(RAIZ_REPO / ".env", "SP500_DB")
     if env:
-        return env
+        return os.path.expanduser(env)
     for c in CANDIDATOS_DB:
         if c.exists():
             return str(c)
