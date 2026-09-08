@@ -4,3 +4,8 @@ venv/
 __pycache__/
 *.pyc
 estado.json
+
+# Análisis sobre la base DuckDB: resultados generados y bases locales
+analisis/salida/
+*.duckdb
+*.duckdb.wal
