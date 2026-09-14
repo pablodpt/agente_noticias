@@ -4,3 +4,4 @@ venv/
 __pycache__/
 *.pyc
 estado.json
+datos/cache_nav.json

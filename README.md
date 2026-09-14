@@ -1,156 +1,115 @@
-# 💼 Agente de Portafolio → Telegram
+# FARO — screener UCITS Europa (no ETF)
 
-Agente que vigila **tu portafolio** y te avisa por Telegram:
+Agente para **elegir fondos UCITS disponibles en Europa que no son ETF** y construir un portafolio según el **momento de mercado**.
 
-- **📬 Boletín diario a las 18:00 (hora de Madrid)** con rendimiento, contexto de mercado,
-  calendario de resultados, presentaciones SEC y noticias por ticker.
-- **🚨 Alertas urgentes inmediatas** cuando pasa algo grande: ruptura al alza o a la baja,
-  caída/subida fuerte, gap de apertura, volumen anómalo, 8-K/10-K recién publicado,
-  noticia crítica (fraude, demanda, adquisición, recorte de guidance...) o resultados hoy/mañana.
+El universo es amplio en temáticas (liquidez, crédito, calidad, value, tech, IA, agua, salud, clima, India, Japón, mineras de oro…) pero **cerrado y exigente**: solo referentes de su clase. El ranking combina **TER, Sharpe, Sortino, rentabilidad, máximo drawdown y Calmar**, y un **encaje de régimen**.
+
+```
+python agente.py web          # interfaz
+python agente.py screener     # ranking en consola
+python agente.py portafolio --cartera automatico --perfil equilibrado
+python agente.py preview      # boletín UCITS por consola
+```
+
+> Informativo. **No es asesoramiento financiero** ni una recomendación de compra.
 
 ---
 
-## 1. Configura tu portafolio
+## Qué resuelve
 
-Edita la lista `PORTAFOLIO` en `config.py`:
+| Pieza | Cómo |
+|---|---|
+| Universo | ~80 UCITS (SICAV / FCP / OEIC / FI). **Cero ETF/ETC**. |
+| Coste | TER de la clase minorista. Penaliza el 1% extra de gastos como alpha negativo. |
+| Riesgo/retorno | Sharpe 3Y, Sortino, retorno 1Y/3Y/5Y, max drawdown, Calmar, Ulcer. |
+| Best in class | Percentiles **dentro de su clase de activo**, podio por tema. |
+| Ciclo | Expansión, selectiva, late-cycle, recesión, estanflación, recovery. |
+| Portafolio | Sleeves monetario / RF / mixto / RV / oro → 1–3 BIC por sleeve, inverse-vol, techo de concentración. |
 
-```python
-PORTAFOLIO = [
-    {"ticker": "AAPL", "nombre": "Apple", "peso": 20},
-    {"ticker": "SAN.MC", "nombre": "Santander", "peso": 15},   # bolsa española
-    {"ticker": "BTC-USD", "nombre": "Bitcoin", "peso": 5},     # cripto
-]
-```
+Modos de cartera: `automatico`, `defensivo`, `equilibrado`, `crecimiento`, `anti_inflacion`, `recesion`, `expansion`, `stagflation`.  
+Perfiles: `conservador`, `equilibrado`, `agresivo`.
 
-`nombre` y `peso` son opcionales (el peso solo ordena la relevancia en el boletín).
-Funciona con cualquier símbolo de Yahoo Finance: acciones US, `.MC` Madrid, `.DE` Frankfurt, ETFs, cripto.
+**Oro:** en UCITS el oro físico cotiza casi solo como ETC (excluido). La manga de oro usa **mineras** (BGF World Gold, Bakersteel, Ninety One…): beta oro con apalancamiento operativo y drawdowns mayores.
 
-> Nota: los datos de **SEC EDGAR** (10-K, 10-Q, 8-K) solo existen para empresas cotizadas en EE. UU.
-> Para el resto de tickers, el resto de funciones sigue operando con normalidad.
+---
 
-## 2. Crea tu bot de Telegram
-
-1. Habla con [@BotFather](https://t.me/BotFather) → `/newbot` → copia el **token**.
-2. Habla con [@userinfobot](https://t.me/userinfobot) → copia tu **chat id**.
-3. Envía un mensaje cualquiera a tu bot (si no, no puede escribirte).
-
-Copia `.env.example` a `.env` y rellena:
-
-```bash
-cp .env.example .env
-```
-
-## 3. Instala y prueba
+## Arranque
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+python agente.py web --host 0.0.0.0 --port 8000
+```
 
-python agente.py test       # comprueba la conexión con Telegram
-python agente.py preview    # imprime el boletín por consola, sin enviar nada
-python agente.py boletin    # genera y ENVÍA el boletín
-python agente.py vigilar    # una pasada de detección de eventos urgentes
-python agente.py daemon     # bucle continuo (boletín a su hora + vigilancia)
+Abre la UI. Pestañas: **Régimen · Screener · Best in class · Portafolio · Método**.
+
+Si Yahoo Finance responde, las métricas salen del **valor liquidativo**. Si no (red, cookies, etc.), FARO **no inventa una serie de NAV**: ancla a medias de categoría europeas (~sep-2026) y aplica una prima best-in-class menos penalización de TER. La UI etiqueta esos números como `est.`
+
+```bash
+# refrescar VL vivo
+curl -X POST http://localhost:8000/api/refrescar
 ```
 
 ---
 
-## 4. Ejecución automática
+## Telegram (opcional)
 
-### Opción A — GitHub Actions (gratis, sin servidor)
-
-Ya incluida en `.github/workflows/`:
-
-| Workflow | Qué hace | Cuándo |
-|---|---|---|
-| `boletin-diario.yml` | Envía el boletín completo | 18:00 Madrid, L-V (ajusta solo el horario de verano/invierno) |
-| `vigilancia.yml` | Busca eventos urgentes | cada 30 min, 12:00-21:00 UTC, L-V |
-
-En tu repo → **Settings → Secrets and variables → Actions → New repository secret**:
-
-- `TELEGRAM_TOKEN`
-- `TELEGRAM_CHAT_ID`
-- `SEC_USER_AGENT` → p. ej. `mi-agente tu-email@dominio.com` (la SEC lo exige)
-
-Puedes lanzarlos a mano desde la pestaña **Actions → Run workflow** para probar.
-
-> Los cron de GitHub Actions pueden retrasarse unos minutos cuando la plataforma va cargada.
-> Si necesitas puntualidad al segundo, usa la opción B.
-
-### Opción B — Servidor / PC propio (modo daemon)
+El boletín diario pasa a ser el **resumen UCITS** (régimen + cartera automática + podio).
 
 ```bash
+cp .env.example .env   # TELEGRAM_TOKEN, TELEGRAM_CHAT_ID
+python agente.py test
+python agente.py boletin
 python agente.py daemon
 ```
 
-Gestiona él mismo el horario y la deduplicación. Para dejarlo permanente con **systemd**:
-
-```ini
-# /etc/systemd/system/agente-portafolio.service
-[Unit]
-Description=Agente de Portafolio
-After=network-online.target
-
-[Service]
-WorkingDirectory=/ruta/a/agente_noticias
-ExecStart=/ruta/a/agente_noticias/.venv/bin/python agente.py daemon
-Restart=always
-RestartSec=30
-
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-sudo systemctl enable --now agente-portafolio
-```
-
-O con **cron**, si prefieres pasadas puntuales:
-
-```cron
-0 18 * * 1-5  cd /ruta && .venv/bin/python agente.py boletin
-*/30 14-23 * * 1-5  cd /ruta && .venv/bin/python agente.py vigilar
-```
+La vigilancia de tickers cotizados del repo original sigue en `vigilar` / `preview-tickers`.
 
 ---
 
-## 5. Ajustes de sensibilidad
+## Cómo puntúa (resumen)
 
-Todo se controla por variables de entorno en `.env` (o desde `config.py`):
+Score de calidad **dentro de la clase** (monetario, RF, mixto, RV, oro):
 
-| Variable | Por defecto | Qué hace |
-|---|---|---|
-| `UMBRAL_MOVIMIENTO_PCT` | `3.0` | % de movimiento diario que dispara alerta urgente |
-| `UMBRAL_GAP_PCT` | `3.0` | % de gap de apertura que dispara alerta |
-| `UMBRAL_VOLUMEN_X` | `2.5` | Volumen frente a la media de 20 días considerado anómalo |
-| `VENTANA_RUPTURA_DIAS` | `52` | Sesiones para calcular rupturas de rango (además de 52 semanas) |
-| `DIAS_AVISO_EARNINGS` | `10` | Días de antelación para marcar 🔔 en el calendario |
-| `HORA_BOLETIN` | `18` | Hora del boletín |
-| `TZ_USUARIO` | `Europe/Madrid` | Zona horaria |
-| `INTERVALO_VIGILANCIA_SEG` | `900` | Frecuencia de vigilancia en modo daemon |
-| `USAR_FINBERT` | `false` | `true` = sentimiento con FinBERT (más preciso, descarga ~440 MB) |
+- Sharpe 3Y, Sortino, retorno 3Y y 1Y, max DD, Calmar, TER, convicción BIC (1–5).
+- Si las métricas son estimadas, **sube el peso de TER y BIC** y baja el de retornos.
 
-Para activar FinBERT descomenta `transformers` y `torch` en `requirements.txt`.
+Score final = **68% calidad + 32% encaje de régimen**.
+
+El constructor **no usa Markowitz** (inestable con TER distintos y 5 años de VL). Asigna sleeves por modo y, dentro, elige best-in-class diversificando gestora y tema.
 
 ---
 
-## 6. Cómo está organizado
+## API
 
-```
-agente.py         Orquestador y CLI (boletin / vigilar / daemon / test / preview)
-config.py         Portafolio, umbrales y credenciales
-mercado.py        Precios, rupturas, volumen, medias móviles, calendario de earnings
-noticias.py       RSS por ticker (Yahoo + Google News) y macro
-sec.py            SEC EDGAR: 10-K, 10-Q, 8-K, 13D/G, Form 4...
-sentimiento.py    Análisis alcista/bajista (léxico rápido o FinBERT)
-estado.py         Deduplicación: evita repetirte la misma alerta
-telegram_bot.py   Envío con troceado seguro y reintentos
-```
-
-`estado.json` guarda lo ya notificado durante 36 h para que no te llegue dos veces
-la misma alerta. Está en `.gitignore`.
+| Método | Ruta |
+|---|---|
+| GET | `/api/estado` |
+| GET | `/api/screener?clase=&tema=&max_ter=&min_sharpe=&solo_bic=` |
+| GET | `/api/best-in-class` |
+| GET | `/api/portafolio?modo=automatico&perfil=equilibrado` |
+| GET | `/api/fondo/{id}` |
+| GET | `/api/regimen` |
+| POST | `/api/refrescar` |
 
 ---
 
-⚠️ Este proyecto es informativo y **no constituye asesoramiento financiero**.
-Fuentes: Yahoo Finance, SEC EDGAR y feeds RSS públicos.
+## Layout
+
+```
+agente.py            CLI (web / screener / portafolio / boletin / daemon)
+servidor.py          FastAPI + UI
+ucits/fondos.py      Universo curado (ISIN, TER, tema, tesis)
+ucits/categorias.py  Medias de categoría
+ucits/metricas.py    VL → Sharpe / DD / …
+ucits/scoring.py     Percentiles y BIC
+ucits/regimen.py     Ciclo de mercado
+ucits/portafolio.py  Sleeves + inverse-vol
+web/                 Interfaz
+```
+
+Edita `ucits/fondos.py` para añadir un UCITS (nunca un ETF). Campos mínimos: ISIN, TER, clase, categoría, tema, `bic` 1–5 y tesis.
+
+---
+
+⚠️ Rentabilidades pasadas no predicen las futuras. Prefiere **clases más baratas** del mismo fondo si tu plataforma las ofrece (EBN, banca privada). Fuentes: KID/factsheets de las gestoras, medias de categoría públicas, Yahoo Finance cuando está disponible.
