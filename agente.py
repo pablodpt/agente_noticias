@@ -1,11 +1,14 @@
-"""Agente de Portafolio.
+"""FARO — agente de screening UCITS (no ETF) y, opcionalmente, boletín Telegram.
 
 Modos de uso:
-  python agente.py boletin    -> Genera y envía el boletín diario (18:00).
-  python agente.py vigilar    -> Una pasada de detección de eventos urgentes.
-  python agente.py daemon     -> Bucle continuo: vigila + envía el boletín a su hora.
-  python agente.py test       -> Prueba la conexión con Telegram.
-  python agente.py preview    -> Imprime el boletín por consola (no envía nada).
+  python agente.py web         -> Lanza el screener (interfaz web).
+  python agente.py screener    -> Ranking best-in-class por consola.
+  python agente.py portafolio  -> Construye un portafolio (modo/perfil).
+  python agente.py preview     -> Boletín UCITS por consola (no envía).
+  python agente.py boletin     -> Envía el boletín UCITS por Telegram.
+  python agente.py vigilar     -> Alertas de tickers (módulo legado).
+  python agente.py daemon      -> Bucle continuo (boletín + vigilancia).
+  python agente.py test        -> Prueba la conexión con Telegram.
 """
 import argparse
 import html
@@ -18,6 +21,7 @@ from config import (DIAS_AVISO_EARNINGS, HORA_BOLETIN, INDICES_CONTEXTO,
                     INTERVALO_VIGILANCIA_SEG, MAX_NOTICIAS_POR_TICKER,
                     MINUTO_BOLETIN, NOMBRES, PESOS, TELEGRAM_CHAT_ID,
                     TELEGRAM_TOKEN, TICKERS, TZ)
+from ucits.motor import cargar_screener, construir_portafolio
 from estado import Estado
 from mercado import calendario_earnings, detectar_eventos_precio, snapshot
 from noticias import noticias_macro, noticias_portafolio
@@ -42,6 +46,57 @@ def _nombre(t: str) -> str:
 
 def _flecha(pct: float) -> str:
     return "🟢" if pct >= 0 else "🔴"
+
+
+# ---------------------------------------------------------- BOLETÍN UCITS --
+
+def construir_boletin_ucits(modo: str = "automatico", perfil: str = "equilibrado") -> str:
+    data = cargar_screener()
+    pf = construir_portafolio(modo, perfil)
+    r = data["regimen"]
+    ahora = datetime.now(TZ)
+    p = [
+        "<b>🔦 FARO UCITS — boletín</b>",
+        f"<i>{ahora.strftime('%d/%m/%Y %H:%M')} ({ahora.tzname()})</i>",
+        "",
+        f"<b>Régimen:</b> {r['nombre']}",
+        _esc(r["resumen"]),
+        "",
+        f"<b>Portafolio · {pf['nombre']} · {pf['perfil']}</b>",
+        f"TER pond. {pf['ter_ponderado']}% · Sharpe 3Y {pf['sharpe_3y_pond']} · 1Y {pf['ret_1y_pond']}%",
+        "",
+    ]
+    for pos in pf["posiciones"]:
+        p.append(
+            f"• <b>{pos['peso']:.1f}%</b> {_esc(pos['nombre'])} "
+            f"<code>{pos['isin']}</code> TER {pos['ter']}%"
+        )
+    p += ["", "<b>Podio por clase</b>"]
+    vistos = set()
+    for f in data["fondos"]:
+        if f["clase_activo"] in vistos:
+            continue
+        if not f.get("best_in_class"):
+            continue
+        vistos.add(f["clase_activo"])
+        p.append(
+            f"★ {f['clase_activo']}: {_esc(f['nombre'])} "
+            f"(score {f['score_calidad']}, TER {f['ter']}%)"
+        )
+    p.append("")
+    p.append("<i>Informativo. No es asesoramiento. Universo UCITS, sin ETF.</i>")
+    return "\n".join(p)
+
+
+def imprimir_screener(top: int = 25):
+    data = cargar_screener()
+    print(f"Régimen: {data['regimen']['nombre']}")
+    print(f"{data['resumen']['n']} fondos · TER medio {data['resumen']['ter_medio']}%")
+    print(f"{'SCORE':>6} {'TER':>5} {'1Y':>7} {'SH3':>5} {'DD':>7}  FONDO")
+    for f in data["fondos"][:top]:
+        print(f"{f['score_final']:6.1f} {f['ter']:5.2f} {f.get('ret_1y') or 0:6.1f}% "
+              f"{f.get('sharpe_3y') or 0:5.2f} {f.get('max_dd') or 0:6.1f}%  "
+              f"{f['nombre'][:54]}")
 
 
 # ------------------------------------------------------------------ BOLETÍN --
@@ -139,9 +194,9 @@ def construir_boletin() -> str:
 
 
 def enviar_boletin() -> bool:
-    mensaje = construir_boletin()
+    mensaje = construir_boletin_ucits()
     ok = enviar_telegram(TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, mensaje)
-    log.info("Boletín %s", "enviado ✅" if ok else "FALLÓ ❌")
+    log.info("Boletín UCITS %s", "enviado ✅" if ok else "FALLÓ ❌")
     return ok
 
 
@@ -254,12 +309,43 @@ def daemon():
 # --------------------------------------------------------------------- CLI --
 
 def main():
-    ap = argparse.ArgumentParser(description="Agente de Portafolio → Telegram")
-    ap.add_argument("modo", nargs="?", default="boletin",
-                    choices=["boletin", "vigilar", "daemon", "test", "preview"])
+    ap = argparse.ArgumentParser(description="FARO — screener UCITS (no ETF)")
+    ap.add_argument("modo", nargs="?", default="web",
+                    choices=["web", "screener", "portafolio", "boletin", "vigilar",
+                             "daemon", "test", "preview", "preview-tickers"])
+    ap.add_argument("--perfil", default="equilibrado",
+                    choices=["conservador", "equilibrado", "agresivo"])
+    ap.add_argument("--cartera", default="automatico",
+                    help="Modo de portafolio: automatico, defensivo, equilibrado, "
+                         "crecimiento, anti_inflacion, recesion, expansion, stagflation")
+    ap.add_argument("--host", default="0.0.0.0")
+    ap.add_argument("--port", type=int, default=8000)
     args = ap.parse_args()
 
+    if args.modo == "web":
+        import uvicorn
+        from servidor import app as webapp
+        log.info("FARO en http://%s:%s", args.host, args.port)
+        uvicorn.run(webapp, host=args.host, port=args.port, log_level="info")
+        return
+
+    if args.modo == "screener":
+        imprimir_screener()
+        return
+
+    if args.modo == "portafolio":
+        pf = construir_portafolio(args.cartera, args.perfil)
+        print(f"{pf['nombre']} · {pf['perfil']} · TER {pf['ter_ponderado']}%")
+        print(pf["idea"])
+        for p in pf["posiciones"]:
+            print(f"  {p['peso']:5.1f}%  {p['isin']}  TER {p['ter']:.2f}%  {p['nombre']}")
+        return
+
     if args.modo == "preview":
+        print(construir_boletin_ucits(args.cartera, args.perfil))
+        return
+
+    if args.modo == "preview-tickers":
         print(construir_boletin())
         return
 
